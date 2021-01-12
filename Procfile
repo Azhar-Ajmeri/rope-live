@@ -1,1 +1,0 @@
-web: gunicorn rope.wsgi --log-file -
