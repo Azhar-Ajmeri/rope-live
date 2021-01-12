@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/user-list.css' %}">
+    
+{% endblock %}
+
+{% block title %}
+  Add Project
+{% endblock %}
+
+
+{% block subtitlerow1 %}
+<div class="form-row">
+  <div class="col-4">
+    <select name="dropdown" class="form-control" id="user-Type">
+      <option value="1">User</option>
+      <option value="2">Manager</option>
+    </select>
+  </div>
+  <div class="col">
+    <input type="text" class="form-control" placeholder="">
+  </div>
+  <div class="col">
+    <input type="text" class="form-control" placeholder="">
+  </div>
+</div>
+​
+{% endblock %}
+{% block subtitlerow2 %}
+    {{request.project}}
+{% endblock %}
+
+{% block content %}
+<div id="cover-spin"></div>
+
+<section class="header mt-4 mb-4">
+  <div class="container-fluid">
+      <div class="row" id="user-list">
+        <div class="col-12">
+          <h1 class="text-center">Select User</h1><hr class="bg-warning">
+        </div>
+          <div class="col-md-2">
+              <!-- Tabs nav -->
+              <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  
+              </div>
+          </div>
+
+
+          <div class="col-md-6">
+              <!-- Tabs content -->
+              <div class="tab-content" id="v-pills-tabContent">
+                  
+              </div>
+          </div>
+
+
+          <div class="col-md-4 border rounded">
+            <!-- Tabs content -->
+            <div class="tab-content justify-content-center" id="v-pills-tabContent-selected">
+              <hr>
+                <h3 class="d-flex justify-content-center">Selected Users</h3>
+              <hr>
+            </div>
+          </div>
+
+      </div>
+
+
+
+      <div class="row" id="manager-list" style="display: none;">
+        <div class="col-12">
+          <h1 class="text-center">Select Manager</h1><hr>
+        </div>
+        <div class="col-md-2">
+            <!-- Tabs nav -->
+            <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab-manager" role="tablist" aria-orientation="vertical">
+                
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <!-- Tabs content -->
+            <div class="tab-content" id="v-pills-tabContent-manager">
+                
+            </div>
+        </div>
+
+
+        <div class="col-md-4 border rounded">
+          <!-- Tabs content -->
+          <div class="tab-content justify-content-center" id="v-pills-tabContent-selected-manager">
+            <hr>
+              <h3 class="d-flex justify-content-center">Selected Users</h3>
+            <hr>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  var projectId = '{{project_id}}'
+
+  console.log("P : ", projectId)
+</script>
+{% endblock content %}
+
+{% block javaScriptBlock %}
+  <script src="{% static 'js/admin/main_admin.js' %}"></script>
+  <script src="{% static 'js/admin/project_setting_user.js' %}"></script>
+  <script src="{% static 'js/admin/project_setting_manager.js' %}"></script>
+{% endblock %}

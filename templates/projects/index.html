@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Add Project
+{% endblock %}
+
+
+{% block subtitlerow1 %}
+  
+{% endblock %}
+{% block subtitlerow2 %}
+  <div class="form-row" id="project_selection">
+
+  </div>
+  
+{% endblock %}
+
+{% block content %}
+<div id="cover-spin"></div>
+
+<div id="message_container" style="display: none;">
+  <div id="message_content">
+
+  </div>
+  <i class="fa fa-close fa-2 ml-4" id="closeMessage" style="color:white;cursor: pointer;"></i>
+</div>
+
+<!-- Task Cards -->
+<div class="container-fluid">
+    <div class="lists mt-1 border-top" id="taskCardContainer">
+      <!-- Columns and Cards goes here-->
+    </div>
+</div>
+<!--/ Task Cards -->
+
+
+<!-- Edit subpackage Modal -->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Fields</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="bg-blur" id="blurEditForm"></div>
+        <div class="loader" id="Loader-spin">Loading...</div>
+
+        <form action="" class="infoi" id="editSWPForm" method="post">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="id_title">Title:</label>
+              <input type="text" class="form-control" name="title" maxlength="255" id="id_title">
+            </div>
+          </div>
+            
+          <div class="form-group">
+              <label for="id_description">Description:</label>
+              <input type="text" class="form-control" name="description" maxlength="255" id="id_description">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="id_date_of_start">Date of start:</label>
+              <input type="date" class="form-control" name="date_of_start" id="id_date_of_start">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="id_date_of_end">Date of end:</label>
+              <input type="date" class="form-control" name="date_of_end" id="id_date_of_end">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="id_efforts_planned">Efforts planned:</label>
+              <input type="number" class="form-control" name="efforts_planned" required="" id="id_efforts_planned">
+            </div>
+            
+            <div class="form-group col-md-6">
+              <label for="id_priority">Priority:</label>
+              <select name="priority" class="form-control" id="id_priority">
+                <option value="1">LOW</option>
+
+                <option value="2">MEDIUM</option>
+
+                <option value="3">HIGH</option>
+
+              </select>
+            </div>
+          </div>
+          <!-- {% for field in EditProjectFields %}
+            <div class="mx-3">{{ field }}</div>
+          {% endfor %}
+          {{ editForm.as_p }}
+          -->
+          <button type="button" id="editModalButton" class="btn btn-outline-warning btn-lg btn-block">Save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="editModalDismissButton" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Edit subpackage Modal -->
+
+
+<script>
+  var userId = '{{request.user.id}}'
+</script>
+{% endblock content %}
+
+{% block javaScriptBlock %}
+  <script src="{% static 'js/user/kanban.js' %}"></script>
+  <script src="{% static 'js/user/dragdrop.js' %}"></script>
+  <script src="{% static 'js/user/card_flow.js' %}"></script>
+  <script src="{% static 'js/user/edit_card.js' %}"></script>
+  <script src="{% static 'js/user/filters.js' %}"></script>
+{% endblock %}

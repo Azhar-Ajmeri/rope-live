@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/message_box.css' %}">
+    <link rel="stylesheet" href="{% static 'css/info_button.css' %}">
+    {% block head %}
+    {% endblock %}
+    <title>
+        {% block title %}
+        {% endblock %} | Project Management Dashboard
+    </title>
+    
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-warning">
+        <a class="navbar-brand" href="">Project Management Dashboard</a>
+        <div class="float-right m-auto">
+            <span class="navbar-brand">
+                Hello, {{request.user}}
+            </span>
+            
+        </div>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item avatar">
+                <a class="nav-link p-0" href="#">
+<!--                    <img src="{% static 'user_icon.jpg' %}" class="rounded-circle z-depth-0" alt="avatar image" height="35">-->
+                    <img src="{{request.user.userprofiledetail.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+
+                </a>
+            </li>
+        </ul>
+        <a class="navbar-brand nav-link p-0 pl-2" href="{% url 'logout' %}">
+            <b>Logout</b>
+        </a>
+    </nav>
+    <!--/.Navbar -->       
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col py-2 px-lg-5 bg-light">
+                {% block subtitlerow1 %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col bg-light">
+                {% block subtitlerow2 %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+<div class="container-fluid">
+    <!-- BODY Block -->
+            {% block content %}
+            {% endblock %}
+    <!--/BODY Block -->
+</div>            
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/8a1304047e.js"></script>
+    
+    {% block javaScriptBlock %}
+    {% endblock %}
+</body>
+</html>
