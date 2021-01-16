@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+	.profile-pic{
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+    .input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		
+</style>
+{% endblock %}
+
+{% block title %}
+  Add Project
+{% endblock %}
+
+
+{% block subtitlerow1 %}
+  <h5>Projects</h5>
+{% endblock %}
+{% block subtitlerow2 %}
+
+{% endblock %}
+
+{% block content %}
+<div id="cover-spin"></div>
+
+
+
+<br>
+<div class="row">
+	<div class="col-md-3">
+		<div class="card card-body">
+			<a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Back to Profile</a>
+			<hr>
+			<h3 style="text-align: center">Account Settings</h3>
+			<hr>
+			<img class="profile-pic" src="{{request.user.userprofiledetail.profile_pic.url}}" >
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="card card-body">
+			
+			<form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    {{ form.name }}
+                </div>
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                    </div>
+                    {{ form.phone }}
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                    </div>
+                    {{ form.email }}
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-pencil-square"></i></span>
+                    </div>
+                    {{ form.department }}
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
+                    </div>
+                    {{ form.profile_pic }}
+                </div>
+
+				
+		
+			    <input class="btn btn-success" type="submit" value="Update Information" name="Update Information">
+			</form>
+		</div>
+    </div>
+</div>
+
+
+
+{% endblock content %}
+
+{% block javaScriptBlock %}
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder='Name...';
+    form_fields[2].placeholder='Phone...';
+    form_fields[3].placeholder='Email...';
+    form_fields[4].placeholder='Role..';
+    form_fields[5].placeholder='Profile Photo...';
+    
+
+    for (var i=1; i < form_fields.length-1; i++){
+        form_fields[i].className += 'form-control'
+    }
+    
+    $('#id_department').addClass('form-control')
+</script>
+  <!--<script src="{% static 'js/.js' %}"></script>-->
+{% endblock %}

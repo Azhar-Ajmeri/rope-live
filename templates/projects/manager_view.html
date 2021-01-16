@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+	
+</style>
+{% endblock %}
+
+{% block title %}
+  Add Project
+{% endblock %}
+
+
+{% block subtitlerow1 %}
+  
+{% endblock %}
+{% block subtitlerow2 %}
+<div class="container-fluid">
+  <div class="form-row" id="project_selection"></div>
+</div>
+{% endblock %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+<div id="cover-spin"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <canvas id="SwpVsUser" width="200" height="150"></canvas>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <canvas id="SwpVsStatus" width="200" height="150"></canvas>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <canvas id="StartDateByKW" width="200" height="400"></canvas>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <canvas id="ActualStartDateByKW" width="200" height="400"></canvas>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+{% block javaScriptBlock %}
+  <!--<script src="{% static 'js/.js' %}"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="{% static 'js/manager/manager_view.js' %}"></script>
+  <script src="{% static 'js/manager/manager_chart_updating.js' %}"></script>
+{% endblock %}
