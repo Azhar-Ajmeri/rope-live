@@ -20,27 +20,40 @@
 <body>
     
     <!-- Navbar -->
-    <nav class="navbar navbar-light bg-warning">
-        <a class="navbar-brand" href="">Project Management Dashboard</a>
-        <div class="float-right m-auto">
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'home' %}">Project Management Dashboard</a>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'manager-page' %}">Manage Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'manager-view' %}">Project-Status</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'adminPage' %}">Admin</a>
+            </li>
+          </ul>
+          <div class="form-inline my-2 my-lg-0">
             <span class="navbar-brand">
                 Hello, {{request.user}}
             </span>
-            
+            <a class="nav-link p-0" href="#">
+                <img src="{{request.user.userprofiledetail.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+            </a>
+            <a class="navbar-brand nav-link p-0 pl-2" href="{% url 'logout' %}">
+                <b>Logout</b>
+            </a>
+          </div>
         </div>
-        <ul class="navbar-nav ml-auto nav-flex-icons">
-            <li class="nav-item avatar">
-                <a class="nav-link p-0" href="#">
-<!--                    <img src="{% static 'user_icon.jpg' %}" class="rounded-circle z-depth-0" alt="avatar image" height="35">-->
-                    <img src="{{request.user.userprofiledetail.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35">
-
-                </a>
-            </li>
-        </ul>
-        <a class="navbar-brand nav-link p-0 pl-2" href="{% url 'logout' %}">
-            <b>Logout</b>
-        </a>
-    </nav>
+      </nav>
     <!--/.Navbar -->       
 
     <div class="container-fluid">
