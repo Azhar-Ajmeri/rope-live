@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'ntj%yc^&+u9gt@_o_u^0xw7^f77)uwcfpy#x-&r97x^c_2$rc+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['rope-project-management.herokuapp.com', '127.0.0.1']
 
