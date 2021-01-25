@@ -31,10 +31,9 @@ function myProjectsList(){
 		})
 		SwpVsUserChart()
 		SwpVsStatusChart()
-		setTimeout(function(){ startVsEndPlannedDateChart() }, 1000);
-		setTimeout(function(){ startVsEndActualDateChart() }, 2000);
-		setTimeout(function(){ WeekByStatusChart() }, 3000);
-		
+		startVsEndPlannedDateChart();
+		startVsEndActualDateChart();
+		WeekByStatusChart();
 	})
 }
 
