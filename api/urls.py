@@ -69,7 +69,7 @@ urlpatterns = [
 
     path('manager-group/<str:pk>', views.managerGroup, name = 'manager-group'),
     
-    path('project-user_list/<str:pk>', views.projectUserList, name = 'project-user_list'),
+    path('project-user_list/<str:pk>/<str:wpk>', views.projectUserList, name = 'project-user_list'),
 
     path('manager-create-group/', views.createManagerGroup, name = 'manager-create-group'),
     path('manager-group-delete/<str:pk>/<str:uk>', views.managerGroupDelete, name = 'manager-group-delete'),
@@ -84,11 +84,12 @@ urlpatterns = [
     path('user-swp-count/<str:pid>/' ,views.SubworkpackageByResponsible),
     path('status-swp-count/<str:pid>/' ,views.SubworkpackageByStatus),
     path('planned-start-date-swp/<str:pid>/', views.startPlannedDate),
-    path('planned-end-date-swp/<str:pid>/', views.endPlannedDate),
 
+    path('planned-end-date-swp/<str:pid>/', views.endPlannedDate),
     path('actual-start-date-swp/<str:pid>/', views.startActualDate),
     path('actual-end-date-swp/<str:pid>/', views.endActualDate),
-
     path('project-start-date/<str:pid>/', views.projectStartDate),
+
+    path('status-swp-weekly/<str:pid>/' ,views.StateByWeek),
 
 ]

@@ -31,8 +31,10 @@ function myProjectsList(){
 		})
 		SwpVsUserChart()
 		SwpVsStatusChart()
-		startVsEndPlannedDateChart()
-		startVsEndActualDateChart()
+		setTimeout(function(){ startVsEndPlannedDateChart() }, 1000);
+		setTimeout(function(){ startVsEndActualDateChart() }, 2000);
+		setTimeout(function(){ WeekByStatusChart() }, 3000);
+		
 	})
 }
 
@@ -88,7 +90,6 @@ function SwpVsStatusChart(){
 		}
     });
 }
-
 
 function startVsEndPlannedDateChart(){
     project_Id = $('select[id="selectedProject"]').val()
@@ -310,11 +311,10 @@ function startVsEndActualDateChart(){
 					last_week = Number(moment(actual_end_date[actual_end_date.length-1].actual_date_of_end).format('WW'));
 					last_year = Number(moment(actual_end_date[actual_end_date.length-1].actual_date_of_end).format('YYYY'));
 				}
-				else{
+				else{					
 					last_week = Number(moment(actual_start_date[actual_start_date.length-1].actual_date_of_start).format('WW'));
 					last_year = Number(moment(actual_start_date[actual_start_date.length-1].actual_date_of_start).format('YYYY'));
 				}
-				
 
 				if(last_week >= 52 && Number(moment(actual_end_date[actual_end_date.length-1].actual_date_of_end).format('MM')) == 1)
 				{
@@ -357,6 +357,7 @@ function startVsEndActualDateChart(){
 						week = week + 1;
 					}
 				}
+
 				var cmm_total = 0;
 				for(var i = 0; i < actual_start_date.length; i++)
 				{
@@ -416,11 +417,189 @@ function startVsEndActualDateChart(){
 						}
 					}
 				}
+				
 				ActualStartDateByKW.data.labels = dateMain;
                 ActualStartDateByKW.data.datasets[0].data = start_data;
                 ActualStartDateByKW.data.datasets[1].data = end_data;
-                ActualStartDateByKW.update();
+				ActualStartDateByKW.update();
+				
 			})
 		})
 	})
+}
+
+function WeekByStatusChart(){
+    project_Id = $('select[id="selectedProject"]').val()
+	$.ajax({
+        url: '/api/status-swp-weekly/'+project_Id+'/',
+        data: {
+			csrfmiddlewaretoken: csrftoken,
+		},
+		type: 'post',
+
+        success: function(response){
+			
+			fetch('/api/project-start-date/'+project_Id+'/')
+			.then((resp) => resp.json())
+			.then(function(data){
+				project_date = data;
+
+				dateMain = []
+				state1weekcount = []
+				state2weekcount = []
+				state3weekcount = []
+				state4weekcount = []
+
+				var week = Number(moment(project_date[0].date_of_creation).format('W'))
+				var year = Number(moment(project_date[0].date_of_creation).format('YYYY'))
+
+				if(week >= 52 && Number(moment(project_date[0].date_of_creation).format('MM')) == 1)
+				{
+					year = year - 1;
+				}
+				else if(week == 1 && Number(moment(project_date[0].date_of_creation).format('MM')) == 12)
+				{
+					year = year + 1;
+				}
+				
+				var m = moment(year+'-12-31', 'YYYY-MM-DD');
+				var max_week = m.format('W');
+				max_week = Number(max_week);
+
+				if(max_week == 1){
+					max_week = 52;
+				}
+				
+				var total_weeks = 15;
+				var i = 0;
+
+				while(i<total_weeks){
+					i += 1;
+					dateMain.push(year+'_'+week);
+					state1weekcount.push(0);
+					state2weekcount.push(0);
+					state3weekcount.push(0);
+					state4weekcount.push(0);
+
+					if(week >= max_week)
+					{
+						week = 1;
+						year = year + 1;
+
+						m = moment(year+'-12-31', 'YYYY-MM-DD');
+						max_week = m.format('W');
+						max_week = Number(max_week);
+
+						if(max_week == 1){
+							max_week = 52;
+						}
+					}
+					else
+					{
+						week = week + 1;
+					}
+				}
+				
+				for(var i = 0; i < dateMain.length; i++)
+				{
+					for(var j = 0; j < response.length; j++)
+					{
+						if(moment(response[j].date_of_state4).isSameOrAfter(project_date[0].date_of_creation))
+						{
+							var week = Number(moment(response[j].date_of_state4).format('W'));
+							var year = Number(moment(response[j].date_of_state4).format('YYYY'));
+
+							if(week >= 52 && Number(moment(response[j].date_of_state4).format('MM')) == 1)
+							{
+								year = year - 1;
+							}
+							else if(week == 1 && Number(moment(response[i].date_of_state4).format('MM')) == 12)
+							{
+								year = year + 1;
+							}
+							var thisweek = year+"_"+week
+							if(thisweek == dateMain[i])
+							{
+								state4weekcount[i] += 1;
+							}
+						}
+					
+						if(moment(response[j].date_of_state3).isSameOrAfter(project_date[0].date_of_creation))
+						{
+							var week = Number(moment(response[j].date_of_state3).format('W'));
+							var year = Number(moment(response[j].date_of_state3).format('YYYY'));
+
+							if(week >= 52 && Number(moment(response[j].date_of_state3).format('MM')) == 1)
+							{
+								year = year - 1;
+							}
+							else if(week == 1 && Number(moment(response[i].date_of_state3).format('MM')) == 12)
+							{
+								year = year + 1;
+							}
+							var thisweek = year+"_"+week
+							if(thisweek == dateMain[i])
+							{
+								state3weekcount[i] += 1;
+							}
+						}
+					
+						if(moment(response[j].date_of_state2).isSameOrAfter(project_date[0].date_of_creation))
+						{
+							var week = Number(moment(response[j].date_of_state2).format('W'));
+							var year = Number(moment(response[j].date_of_state2).format('YYYY'));
+
+							if(week >= 52 && Number(moment(response[j].date_of_state2).format('MM')) == 1)
+							{
+								year = year - 1;
+							}
+							else if(week == 1 && Number(moment(response[i].date_of_state2).format('MM')) == 12)
+							{
+								year = year + 1;
+							}
+							var thisweek = year+"_"+week
+							if(thisweek == dateMain[i])
+							{
+								state2weekcount[i] += 1;
+							}
+						}
+					
+						if(moment(response[j].date_of_state1).isSameOrAfter(project_date[0].date_of_creation))
+						{
+							var week = Number(moment(response[j].date_of_state1).format('W'));
+							var year = Number(moment(response[j].date_of_state1).format('YYYY'));
+
+							if(week >= 52 && Number(moment(response[j].date_of_state1).format('MM')) == 1)
+							{
+								year = year - 1;
+							}
+							else if(week == 1 && Number(moment(response[i].date_of_state1).format('MM')) == 12)
+							{
+								year = year + 1;
+							}
+							var thisweek = year+"_"+week
+							if(thisweek == dateMain[i])
+							{
+								state1weekcount[i] += 1;
+							}
+						}
+					}
+					if(i != 0){
+						state2weekcount[i] = state2weekcount[i] + state2weekcount[i-1] - state3weekcount[i];
+						state3weekcount[i] = state3weekcount[i] + state3weekcount[i-1] - state4weekcount[i];
+						state4weekcount[i] += state4weekcount[i-1];
+					}
+					state1weekcount[i] = response.length - state2weekcount[i] - state3weekcount[i] - state4weekcount[i];
+				}
+				
+				WeekByStatus.data.labels = dateMain;
+				WeekByStatus.data.datasets[0].data = state1weekcount;
+				WeekByStatus.data.datasets[1].data = state2weekcount;
+				WeekByStatus.data.datasets[2].data = state3weekcount;
+				WeekByStatus.data.datasets[3].data = state4weekcount;
+				WeekByStatus.update();
+				
+			})
+		}
+    });
 }

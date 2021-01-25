@@ -15,7 +15,6 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
-
 $('select[id="user-Type"]').change(function(){
     console.log($("#user-Type").val())
     if($("#user-Type").val()==2){

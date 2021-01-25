@@ -82,11 +82,14 @@ class SubWorkPackage(models.Model):
 
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
 
+    date_of_state1 = models.DateField(auto_now_add=True, null=True, blank= True)
+    date_of_state2 = models.DateField(auto_now_add=False, null=True, blank= True)
+    date_of_state3 = models.DateField(auto_now_add=False, null=True, blank= True)
+    date_of_state4 = models.DateField(auto_now_add=False, null=True, blank= True)
+
     date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_start_year_week = models.CharField(max_length=10, null=True, blank= True)
 
     date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_end_year_week = models.CharField(max_length=10, null=True, blank= True)
 
     duration = models.IntegerField(null=True, blank= True)
 

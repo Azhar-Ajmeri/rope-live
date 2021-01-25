@@ -1,3 +1,20 @@
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
 FillBuildedBoardColumns()
 
 function FillBuildedBoardColumns(){
@@ -25,7 +42,7 @@ function FillBuildedBoardColumns(){
                         <i class="fa fa-ellipsis-v text-warning"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button type="button" data-toggle="modal" data-target="#" class="deleteButtonTask dropdown-item btn-sm">Delete</button>
+                            <button type="button" data-toggle="modal" data-target="#" data-id="${project[i].id}" class="deleteProjectButton dropdown-item btn-sm">Delete</button>
                         </div>
                     <!--/DropDown -->
                         <a href="admin/${project[i].title}?project_Id=${project[i].id}">
@@ -62,6 +79,8 @@ function enterKeyPress(e)
 //Start function
 $(document).ready(function(){
 
+    cardDeleter()
+
     $('#closeMessage').click(function(){$('#message_container').hide(0);})
 
     //Creating a new project using Ajax function
@@ -89,3 +108,22 @@ $(document).ready(function(){
         document.getElementById('modalDismissButton').click();
     });
 })
+
+
+//Deleting Function for Project cards
+function cardDeleter(){
+    
+    $("#project_cards").on('click','.deleteProjectButton',function(){
+        globalDataId = $(this).data('id');
+
+        fetch('/api/project-delete/'+globalDataId+'/', {
+            method:'DELETE',
+            headers:{
+                'Content-type':'application/json',
+                'X-CSRFToken':csrftoken,
+                }
+        }).then((response) => {
+            $("#"+globalDataId).remove();
+        })
+    })
+}

@@ -304,9 +304,14 @@ def updateSubPackageState(request):
     subWorkPackage.state = state
     priority = data.get('priority')
     subWorkPackage.priority = priority
-    if(data.get('state') == '3'):
+    
+    if(data.get('state') == '2'):
+        subWorkPackage.date_of_state2 = data.get('actual_date')
+    elif(data.get('state') == '3'):
+        subWorkPackage.date_of_state3 = data.get('actual_date')
         subWorkPackage.actual_date_of_start = data.get('actual_date')
     elif(data.get('state') == '4'):
+        subWorkPackage.date_of_state4 = data.get('actual_date')
         subWorkPackage.actual_date_of_end = data.get('actual_date')
     elif(data.get('state') == '2'):
         subWorkPackage.actual_date_of_start = None
@@ -408,14 +413,9 @@ def managerGroupDelete(request, pk, uk):
     return Response('Item Deleted Successsfully')
 
 @api_view(['GET'])
-def projectUserList(request, pk):
-    userList = UserGroup.objects.filter(project_Id = pk)
-
-    final_list=[]
-
-    for user in userList:
-        element = User.objects.get(id = user.user.id)
-        final_list.append(element)
+def projectUserList(request, pk, wpk):
+    wp = WorkPackage.objects.get(id = wpk)
+    final_list = User.objects.filter(usergroup__project_Id = pk, userprofiledetail__department = wp.department_id)
 
     serializer = UserSerializer(final_list, many = True)
     return Response(serializer.data)
@@ -483,8 +483,8 @@ def SubworkpackageByResponsible(request, pid):
     
     user_List = User.objects.annotate(package_count=Count('subworkpackage__responsible', 
     filter=Q(subworkpackage__project_Id = pid)
-    )).filter(is_superuser = False)
-    
+    )).filter(is_superuser = False, usergroup__project_Id = pid)
+
     data = list(user_List.values('first_name', 'last_name','package_count'))
     
     return JsonResponse(data, safe=False)
@@ -496,9 +496,6 @@ def SubworkpackageByStatus(request, pid):
     data = list(status_List.values())
     
     return JsonResponse(data, safe=False)
-
-
-
 
 def startPlannedDate(request, pid):
     
@@ -545,3 +542,11 @@ def endActualDate(request, pid):
     end_data = list(query_result.values('actual_date_of_end'))
     
     return JsonResponse(end_data, safe=False)
+
+def StateByWeek(request, pid):
+    
+    state_List = SubWorkPackage.objects.filter(project_Id = pid)
+    
+    data = list(state_List.values('date_of_state1', 'date_of_state2', 'date_of_state3', 'date_of_state4'))
+    
+    return JsonResponse(data, safe=False)

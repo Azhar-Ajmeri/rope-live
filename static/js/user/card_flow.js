@@ -13,6 +13,7 @@ function cardChangeState(listId, listPriority, list, dragging, packageId, priori
                     csrfmiddlewaretoken: csrftoken,
                     id : packageId,
                     state : listId,
+                    actual_date : new Date().toISOString().slice(0, 10),
                     priority : listPriority,
                 },
                 type: 'post',
@@ -30,7 +31,6 @@ function cardChangeState(listId, listPriority, list, dragging, packageId, priori
         else if(listId == 3 && dragging.dataset.state == 2 && priorityId == listPriority 
             || listId == 4 && dragging.dataset.state == 3 && priorityId == listPriority){
             
-
             $.ajax({
                 url: '/projects/'+ packageId +'/getSubworkpackageFormValues/',
                 data: {
@@ -88,6 +88,7 @@ function cardChangeState(listId, listPriority, list, dragging, packageId, priori
                 csrfmiddlewaretoken: csrftoken,
                 id : packageId,
                 state : listId,
+                actual_date : new Date().toISOString().slice(0, 10),
                 priority : listPriority,
             },
             type: 'post',

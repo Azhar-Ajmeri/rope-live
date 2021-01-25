@@ -145,7 +145,7 @@ class adminPage(View):
 
             department = Department.objects.get(title = "ProductManagementAndSales")
             milestone = Milestone.objects.create(title = 'E', project_Id = project, phase_Id = phase)
-            workPackage = WorkPackage.objects.create(title = 'Product Specification', project_Id = project, phase_Id = phase, milestone_Id = milestone)            
+            workPackage = WorkPackage.objects.create(title = 'Product Specification', project_Id = project, phase_Id = phase, milestone_Id = milestone, department = department)            
             SubWorkPackage.objects.create(title='run market study / Benchmark', project_Id = project, phase_Id = phase, milestone_Id = milestone, workPackage = workPackage)
             SubWorkPackage.objects.create(title='Generate customer requirements specification', project_Id = project, phase_Id = phase, milestone_Id = milestone, workPackage = workPackage)
             SubWorkPackage.objects.create(title='Set resources and Budget-planning', project_Id = project, phase_Id = phase, milestone_Id = milestone, workPackage = workPackage)

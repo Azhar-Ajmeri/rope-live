@@ -74,7 +74,7 @@ function getCardDetails(){
             var url = '/api/subWorkPackages-list/'+workpackageId
             var wrapper = document.getElementById('subworkpackage');
 
-			userURL = '/api/project-user_list/'+projectId
+			userURL = '/api/project-user_list/'+projectId+'/'+workpackageId
             fetch(userURL)
             .then((resp) => resp.json())
             .then(function(data){

@@ -62,20 +62,16 @@ SwpVsStatus = new Chart(ctx, {
 			label: 'No of Sub workpackage vs Status',
 			data: [],
 			backgroundColor: [
-				'rgba(255, 99, 132, 0.2)',
-				'rgba(54, 162, 235, 0.2)',
-				'rgba(255, 206, 86, 0.2)',
-				'rgba(75, 192, 192, 0.2)',
-				'rgba(153, 102, 255, 0.2)',
-				'rgba(255, 159, 64, 0.2)'
+				'rgba(119, 194, 254, 0.2)',
+				'rgba(36, 156, 255, 0.2)',
+				'rgba(10, 87, 158, 0.2)',
+				'rgba(0, 56, 112, 0.2)',
 			],
 			borderColor: [
-				'rgba(255, 99, 132, 1)',
-				'rgba(54, 162, 235, 1)',
-				'rgba(255, 206, 86, 1)',
-				'rgba(75, 192, 192, 1)',
-				'rgba(153, 102, 255, 1)',
-				'rgba(255, 159, 64, 1)'
+				'rgba(119, 194, 254, 1)',
+				'rgba(36, 156, 255, 1)',
+				'rgba(10, 87, 158, 1)',
+				'rgba(0, 56, 112, 1)',
 			],
 			borderWidth: 1
 		}]
@@ -104,7 +100,7 @@ StartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#2196f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(255, 99, 132, 0.2)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(237, 92, 139, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		},
 		{
@@ -112,7 +108,7 @@ StartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#9621f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(75, 192, 192, 0.2)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(11, 154, 141, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		}]
 	},
@@ -134,11 +130,58 @@ ActualStartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#2196f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(255, 99, 132, 0.2)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(116, 0, 48, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		},
 		{
 			label: 'Actual End Date', // Name the series
+			data: [], // Specify the data values array
+			fill: true,
+			borderColor: '#9621f3', // Add custom color border (Line)
+			backgroundColor: 'rgba(3, 77, 68, 0.6)', // Add custom color background (Points and Fill)
+			borderWidth: 1 // Specify bar border width
+		}]
+	},
+	options: {
+	responsive: true, // Instruct chart js to respond nicely.
+	maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+	}
+});
+
+
+var ctx = document.getElementById("WeekByStatus").getContext('2d');
+				
+WeekByStatus = new Chart(ctx, {
+	type: 'line',
+	label:'he',
+	data: {
+		labels: [],
+		datasets: [{
+			label: 'To Be Defined', // Name the series
+			data: [], // Specify the data values array
+			fill: true,
+			borderColor: '#2196f3', // Add custom color border (Line)
+			backgroundColor: 'rgba(255, 99, 132, 0.2)', // Add custom color background (Points and Fill)
+			borderWidth: 1 // Specify bar border width
+		},
+		{
+			label: 'Defined', // Name the series
+			data: [], // Specify the data values array
+			fill: true,
+			borderColor: '#9621f3', // Add custom color border (Line)
+			backgroundColor: 'rgba(153, 102, 255, 0.2)', // Add custom color background (Points and Fill)
+			borderWidth: 1 // Specify bar border width
+		},
+		{
+			label: 'In Progress', // Name the series
+			data: [], // Specify the data values array
+			fill: true,
+			borderColor: '#9621f3', // Add custom color border (Line)
+			backgroundColor: 'rgba(255, 159, 64, 0.2)', // Add custom color background (Points and Fill)
+			borderWidth: 1 // Specify bar border width
+		},
+		{
+			label: 'Completed', // Name the series
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#9621f3', // Add custom color border (Line)
