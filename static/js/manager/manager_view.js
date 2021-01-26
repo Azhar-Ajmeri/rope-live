@@ -100,7 +100,7 @@ StartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#2196f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(237, 92, 139, 0.6)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(130, 238, 253, 0.1)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		},
 		{
@@ -108,7 +108,7 @@ StartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#9621f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(11, 154, 141, 0.6)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(236, 151, 6, 0.1)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		}]
 	},
@@ -130,7 +130,7 @@ ActualStartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#2196f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(116, 0, 48, 0.6)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(57, 68, 188, 0.2)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		},
 		{
@@ -138,7 +138,7 @@ ActualStartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#9621f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(3, 77, 68, 0.6)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(221, 87, 28, 0.2)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		}]
 	},

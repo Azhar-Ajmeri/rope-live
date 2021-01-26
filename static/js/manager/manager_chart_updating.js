@@ -469,7 +469,7 @@ function WeekByStatusChart(){
 					max_week = 52;
 				}
 				
-				var total_weeks = 15;
+				var total_weeks = 5;
 				var i = 0;
 
 				while(i<total_weeks){
