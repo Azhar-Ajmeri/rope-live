@@ -34,6 +34,8 @@ function myProjectsList(){
 		startVsEndPlannedDateChart();
 		startVsEndActualDateChart();
 		WeekByStatusChart();
+		//startVsEndPlannedDateChart_date();
+		//startVsEndActualDateChart_date();
 	})
 }
 
@@ -247,7 +249,6 @@ function startVsEndPlannedDateChart(){
 						}
 					}
 				}
-
 				StartDateByKW.data.labels = dateMain;
                 StartDateByKW.data.datasets[0].data = start_data;
                 StartDateByKW.data.datasets[1].data = end_data;
