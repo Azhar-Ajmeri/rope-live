@@ -73,7 +73,7 @@ function myProjectsList(){
 							<input type="date" class="form-control" name="end_date" id="id_date_of_end_filter">
 						</div>
 						<div class="form-group col-md-2 align-self-end">
-							<button type="button" class="btn btn-primary mb-1" id="filter_button">Filter</button>
+							<button type="button" class="btn btn-primary" id="filter_button">Filter</button>
 							<button type="button" class="btn btn-dark" id="clear_filter_button">Clear</button>
 						</div>
 					</div>
