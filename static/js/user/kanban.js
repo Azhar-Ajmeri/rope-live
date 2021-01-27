@@ -36,7 +36,7 @@ function myProjectsList(){
 		
 		project_selection_list =
 		`
-			<button class="btn btn-warning mr-3" type="button" data-toggle="collapse" data-target="#collapse-filter" aria-expanded="false" aria-controls="collapseExample">
+			<button class="btn mr-3" style="background-color: #A0D468!important;" type="button" data-toggle="collapse" data-target="#collapse-filter" aria-expanded="false" aria-controls="collapseExample">
 				Filters <i class="fa fa-chevron-down text-muted"></i>
 			</button>
 			<div class="collapse" id="collapse-filter">
