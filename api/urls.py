@@ -23,7 +23,7 @@ urlpatterns = [
     path('milestone-delete/<str:pk>/', views.milestoneDelete, name = 'milestone-delete'),
 
     path('workPackage-list/', views.workPackageList, name = 'workPackage-list'),
-    path('workPackage-list/<str:pk>', views.workPackagesList, name = 'workPackages-list'),
+    path('workPackage-list/<str:pk>/<str:dep_id>', views.workPackagesList, name = 'workPackages-list'),
     path('workPackage-create/', views.workPackageCreate, name = 'workPackage-create'),
     path('workPackage-detail/<str:pk>', views.workPackageDetail, name = 'workPackage-detail'),
     path('workPackage-update/<str:pk>/', views.workPackageUpdate, name = 'workPackage-update'),

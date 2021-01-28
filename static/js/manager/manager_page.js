@@ -21,7 +21,7 @@ FillUserColumns(wrapper)
 
 function FillUserColumns(wrapper){
 
-	var url = '/api/workPackage-list/'+projectId
+	var url = '/api/workPackage-list/'+projectId+"/"+user_department
 	
 	fetch(url)
 	.then((resp) => resp.json())
