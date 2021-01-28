@@ -170,8 +170,8 @@ def workPackageList(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def workPackagesList(request, pk):
-    workPackage = WorkPackage.objects.filter(project_Id = pk)
+def workPackagesList(request, pk, dep_id):
+    workPackage = WorkPackage.objects.filter(project_Id = pk, department = dep_id)
     serializer = WorkPackageSerializer(workPackage, many = True)
 
     return Response(serializer.data)
