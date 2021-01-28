@@ -36,9 +36,14 @@ function myProjectsList(){
 		
 		project_selection_list =
 		`
-			<button class="btn mr-3" style="background-color: #A0D468!important;" type="button" data-toggle="collapse" data-target="#collapse-filter" aria-expanded="false" aria-controls="collapseExample">
+			<button class="btn" style="background-color: #A0D468!important;" type="button" data-toggle="collapse" data-target="#collapse-filter" aria-expanded="false" aria-controls="collapseExample">
 				Filters <i class="fa fa-chevron-down text-muted"></i>
 			</button>
+
+			<button class="btn btn-info ml-auto" type="button">
+				My Workpackages
+			</button>
+
 			<div class="collapse" id="collapse-filter">
 
 				<div class="form-row">
