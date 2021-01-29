@@ -337,6 +337,7 @@ def allUserSubWorkPackage(request, uk):
 @api_view(['GET'])
 def singleUserSubWorkPackage(request, uk, pk):
     subSubWorkPackage = SubWorkPackage.objects.filter(responsible = uk, project_Id = pk)
+    print(subSubWorkPackage)
     filter_data = CardFilter(request.GET, queryset=subSubWorkPackage)
     subSubWorkPackage = filter_data.qs
     serializer = SubWorkPackageSerializer(subSubWorkPackage, many = True)

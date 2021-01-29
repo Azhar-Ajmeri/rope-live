@@ -151,7 +151,7 @@ function buildBoardColumns(){
 // fills the card in the required columns of kanban board
 function FillBuildedBoardColumns(){
 	project_Id = $('select[id="selectedProject"]').val()
-
+	console.log(project_Id)
 	if(filter_data == '')
 	{
 		if(project_Id == '-1')
@@ -166,13 +166,12 @@ function FillBuildedBoardColumns(){
 			var url = '/api/single-subWorkPackages-user-list/'+userId+'/'+ project_Id+'?'+filter_data
 	}
 
-	console.log(url, "Filters")
-
 	fetch(url)
 	.then((resp) => resp.json())
 	.then(function(data){
 
 		var kanbanCards = data
+		console.log(url)
 		
 		for(var i in kanbanCards){
 			
