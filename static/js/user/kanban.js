@@ -36,22 +36,6 @@ function myProjectsList(){
 		
 		project_selection_list =
 		`
-			<button class="btn" style="background-color: #A0D468!important;" type="button" data-toggle="collapse" data-target="#collapse-filter" aria-expanded="false" aria-controls="collapseExample">
-				Filters <i class="fa fa-chevron-down text-muted"></i>
-			</button>
-
-			
-			<div class="ml-auto">
-				<label for="View" class="col-sm-2 col-form-label">View</label>
-			</div>
-			<div>
-				<select name="dropdown" class="form-control" id="selectedProject">
-					<option value="1">My Sub-Workpackages</option>
-					<option value="2">My Workpackages</option>
-				</select>
-			</div>
-			
-
 			<div class="collapse" id="collapse-filter">
 
 				<div class="form-row">
