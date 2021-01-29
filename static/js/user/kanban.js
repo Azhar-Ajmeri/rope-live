@@ -36,22 +36,6 @@ function myProjectsList(){
 		
 		project_selection_list =
 		`
-			<button class="btn" style="background-color: #A0D468!important;" type="button" data-toggle="collapse" data-target="#collapse-filter" aria-expanded="false" aria-controls="collapseExample">
-				Filters <i class="fa fa-chevron-down text-muted"></i>
-			</button>
-
-			
-			<div class="ml-auto">
-				<label for="View" class="col-sm-2 col-form-label">View</label>
-			</div>
-			<div>
-				<select name="dropdown" class="form-control" id="selectedProject">
-					<option value="1">My Sub-Workpackages</option>
-					<option value="2">My Workpackages</option>
-				</select>
-			</div>
-			
-
 			<div class="collapse" id="collapse-filter">
 
 				<div class="form-row">
@@ -167,7 +151,7 @@ function buildBoardColumns(){
 // fills the card in the required columns of kanban board
 function FillBuildedBoardColumns(){
 	project_Id = $('select[id="selectedProject"]').val()
-
+	console.log(project_Id)
 	if(filter_data == '')
 	{
 		if(project_Id == '-1')
@@ -182,13 +166,12 @@ function FillBuildedBoardColumns(){
 			var url = '/api/single-subWorkPackages-user-list/'+userId+'/'+ project_Id+'?'+filter_data
 	}
 
-	console.log(url, "Filters")
-
 	fetch(url)
 	.then((resp) => resp.json())
 	.then(function(data){
 
 		var kanbanCards = data
+		console.log(url)
 		
 		for(var i in kanbanCards){
 			
