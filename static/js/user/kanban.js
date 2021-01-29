@@ -40,9 +40,17 @@ function myProjectsList(){
 				Filters <i class="fa fa-chevron-down text-muted"></i>
 			</button>
 
-			<button class="btn btn-info ml-auto" type="button">
-				My Workpackages
-			</button>
+			
+			<div class="ml-auto">
+				<label for="View" class="col-sm-2 col-form-label">View</label>
+			</div>
+			<div>
+				<select name="dropdown" class="form-control" id="selectedProject">
+					<option value="1">My Sub-Workpackages</option>
+					<option value="2">My Workpackages</option>
+				</select>
+			</div>
+			
 
 			<div class="collapse" id="collapse-filter">
 
