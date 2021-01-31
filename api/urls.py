@@ -10,20 +10,11 @@ urlpatterns = [
     path('project-update/<str:pk>/', views.projectUpdate, name = 'project-update'),
     path('project-delete/<str:pk>/', views.projectDelete, name = 'project-delete'),
 
-    path('phase-list/', views.phaseList, name = 'phase-list'),
-    path('phase-create/', views.phaseCreate, name = 'phase-create'),
-    path('phase-detail/<str:pk>', views.phaseDetail, name = 'phase-detail'),
-    path('phase-update/<str:pk>/', views.phaseUpdate, name = 'phase-update'),
-    path('phase-delete/<str:pk>/', views.phaseDelete, name = 'phase-delete'),
-
-    path('milestone-list/', views.milestoneList, name = 'milestone-list'),
-    path('milestone-create/', views.milestoneCreate, name = 'milestone-create'),
-    path('milestone-detail/<str:pk>', views.milestoneDetail, name = 'milestone-detail'),
-    path('milestone-update/<str:pk>/', views.milestoneUpdate, name = 'milestone-update'),
-    path('milestone-delete/<str:pk>/', views.milestoneDelete, name = 'milestone-delete'),
-
     path('workPackage-list/', views.workPackageList, name = 'workPackage-list'),
-    path('workPackage-list/<str:pk>/<str:dep_id>', views.workPackagesList, name = 'workPackages-list'),
+
+    path('workPackagesByDepartment-list/<str:uk>/<str:dep_id>', views.workPackagesByDepartment),
+    path('workPackage-list/<str:uk>/<str:pk>/<str:dep_id>', views.workPackagesList),    
+
     path('workPackage-create/', views.workPackageCreate, name = 'workPackage-create'),
     path('workPackage-detail/<str:pk>', views.workPackageDetail, name = 'workPackage-detail'),
     path('workPackage-update/<str:pk>/', views.workPackageUpdate, name = 'workPackage-update'),
@@ -43,19 +34,7 @@ urlpatterns = [
     path('single-subWorkPackages-user-list/<str:uk>/<str:pk>', views.singleUserSubWorkPackage, name = 'single-subWorkPackages-user-list'),
     path('update-subworkpackage-user', views.updatePackageUser.as_view(), name="update-subworkpackage-user"),
     
-
-
-
-
-    path('department-list/', views.departmentList, name = 'department-list'),
-    path('department-create/', views.departmentCreate, name = 'department-create'),
-    path('department-detail/<str:pk>', views.departmentDetail, name = 'department-detail'),
-    path('department-update/<str:pk>/', views.departmentUpdate, name = 'department-update'),
-    path('department-delete/<str:pk>/', views.departmentDelete, name = 'department-delete'),
-
-
-
-
+    
 
     path('kanban-state/', views.stateList, name = 'kanban-fields'),
 

@@ -194,7 +194,6 @@ function FillBuildedBoardColumns_SWP(){
 	.then(function(data){
 
 		var kanbanCards = data
-		console.log(url)
 		
 		for(var i in kanbanCards){
 			

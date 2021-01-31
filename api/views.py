@@ -23,8 +23,6 @@ from .filters import *
 
 from django.db.models import Count
 
-from django.db.models.functions import ExtractWeek, ExtractYear
-
 from django.db.models import Q
 
 # Create your views here.
@@ -76,96 +74,18 @@ def projectDelete(request, pk):
     return Response('Item Deleted Successsfully')
 
 
-#-------------------------Phase Model Views--------------------------
-
-
-@api_view(['GET'])
-def phaseList(request):
-    phase = Phase.objects.all()
-    serializer = PhaseSerializer(phase, many = True)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def phaseCreate(request):
-    serializer = PhaseSerializer(data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-
-    return Response(serializer.data)
-    
-@api_view(['GET'])
-def phaseDetail(request, pk):
-    phase = Phase.objects.get(id = pk)
-    serializer = PhaseSerializer(phase, many = False)
-
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def phaseUpdate(request, pk):
-    phase = Phase.objects.get(id = pk)
-    serializer = PhaseSerializer(instance = phase, data = request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-
-    return Response(serializer.data)
-
-@api_view(['DELETE'])
-def phaseDelete(request, pk):
-    phase = Phase.objects.get(id = pk)
-    phase.delete()
-
-    return Response('Item Deleted Successsfully')
-
-
-#-------------------------------------MileStone Model Views----------------------------------------
-
-
-@api_view(['GET'])
-def milestoneList(request):
-    milestone = Milestone.objects.all()
-    serializer = MilestoneSerializer(milestone, many = True)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def milestoneCreate(request):
-    serializer = MilestoneSerializer(data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-
-    return Response(serializer.data)
-    
-@api_view(['GET'])
-def milestoneDetail(request, pk):
-    milestone = Milestone.objects.get(id = pk)
-    serializer = MilestoneSerializer(milestone, many = False)
-
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def milestoneUpdate(request, pk):
-    milestone = Milestone.objects.get(id = pk)
-    serializer = MilestoneSerializer(instance = milestone, data = request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-
-    return Response(serializer.data)
-
-@api_view(['DELETE'])
-def milestoneDelete(request, pk):
-    milestone = Milestone.objects.get(id = pk)
-    milestone.delete()
-
-    return Response('Item Deleted Successsfully')
-
 #--------------------------Work Packages Views-------------------------
 
 @api_view(['GET'])
 def workPackageList(request):
     workPackage = WorkPackage.objects.all()
+    serializer = WorkPackageSerializer(workPackage, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def workPackagesByDepartment(request, uk, dep_id):
+    temp = list( ManagerGroup.objects.values_list('project_Id', flat=True).filter(user = uk) )
+    workPackage = WorkPackage.objects.filter(project_Id__in = temp, department = dep_id)
     serializer = WorkPackageSerializer(workPackage, many = True)
     return Response(serializer.data)
 
@@ -233,8 +153,6 @@ def subWorkPackageDetail(request, pk):
     serializer = SubWorkPackageSerializer(subSubWorkPackage, many = False)
 
     return Response(serializer.data)
-
-from django.db.models.functions import Extract
 
 @api_view(['POST'])
 def subWorkPackageUpdate(request, pk):
@@ -434,49 +352,6 @@ def UsersProjectList(request, uk):
 
     serializer = ProjectSerializer(final_list, many = True)
     return Response(serializer.data)
-
-
-#----------------Department View---------------------
-@api_view(['GET'])
-def departmentList(request):
-    department = Department.objects.all()
-    serializer = DepartmentSerializer(department, many = True)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def departmentCreate(request):
-    serializer = DepartmentSerializer(data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-
-    return Response(serializer.data)
-    
-@api_view(['GET'])
-def departmentDetail(request, pk):
-    department = Department.objects.get(id = pk)
-    serializer = DepartmentSerializer(department, many = False)
-
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def departmentUpdate(request, pk):
-    department = Department.objects.get(id = pk)
-    serializer = DepartmentSerializer(instance = department, data = request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-
-    return Response(serializer.data)
-
-@api_view(['DELETE'])
-def departmentDelete(request, pk):
-    department = Department.objects.get(id = pk)
-    department.delete()
-
-    return Response('Item Deleted Successsfully')
-
-
 
 #--------------------Graphs Data Views-------------------
 
