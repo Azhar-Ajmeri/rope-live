@@ -81,6 +81,10 @@ function myProjectsList(){
 		$('select[id="selectedProject"]').change(function(){
 			buildBoardColumns()
 		})
+
+		$('select[id="packagetype"]').change(function(){
+			clearBoardColumns()
+		})
 		
 		buildBoardColumns()
 		filter_functions()
@@ -99,6 +103,26 @@ function filter_functions(){
 	})
 }
 
+function clearBoardColumns(){
+
+	packageType = $('select[id="packagetype"]').val()
+	
+	var stateColumns = document.getElementsByClassName("list")
+	
+	if(stateColumns.length != 0)
+	{
+		for(var i = 0; i < stateColumns.length; i++)
+		{
+			$("#"+stateColumns[i].id).html("")			
+		}
+		if(packageType == 1){
+			FillBuildedBoardColumns_SWP()
+		}
+		else if(packageType == 2){
+			FillBuildedBoardColumns_WP()
+		}
+	}
+}
 
 // Creates the columns in kanban board
 function buildBoardColumns(){
@@ -113,7 +137,7 @@ function buildBoardColumns(){
 		{
 			$("#"+stateColumns[i].id).html("")			
 		}
-		FillBuildedBoardColumns()
+		FillBuildedBoardColumns_SWP()
 	}
 	else{
 		var url = '/api/kanban-state/'
@@ -143,15 +167,14 @@ function buildBoardColumns(){
 						`;
 				wrapper.appendChild(div);
 			}
-			FillBuildedBoardColumns()
+			FillBuildedBoardColumns_SWP()
 		})
 	}
 }
 
 // fills the card in the required columns of kanban board
-function FillBuildedBoardColumns(){
+function FillBuildedBoardColumns_SWP(){
 	project_Id = $('select[id="selectedProject"]').val()
-	console.log(project_Id)
 	if(filter_data == '')
 	{
 		if(project_Id == '-1')

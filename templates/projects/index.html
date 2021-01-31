@@ -11,19 +11,19 @@
 {% endblock %}
 {% block subtitlerow2 %}
 
-<div class="row">
-  <div class="col-3 col-sm-5 col-md-6 col-lg-6">
+<div class="row mx-lg-3">
+  <div class="col-4 col-sm-6 col-md-6 col-lg-6">
     <button class="btn" style="background-color: #A0D468!important;" type="button" data-toggle="collapse" data-target="#collapse-filter" aria-expanded="false" aria-controls="collapseExample">
       Filters <i class="fa fa-chevron-down text-muted"></i>
     </button>
   </div>
 
-  <div class="col-9 col-sm-5 col-md-6 col-lg-6">
+  <div class="col-8 col-sm-6 col-md-6 col-lg-6">
     <div class="form-group row">
       <label for="View" class="col-2 col-form-label">View</label>
       
-      <div class="col-8">
-        <select name="dropdown" class="form-control">
+      <div class="col-10">
+        <select name="dropdown" class="form-control" id="packagetype">
           <option value="1">My Sub-Workpackages</option>
           <option value="2">My Workpackages</option>
         </select>
@@ -51,9 +51,7 @@
 
 <!-- Task Cards -->
 <div class="container-fluid">
-    <div class="lists mt-1 border-top" id="taskCardContainer">
-      <!-- Columns and Cards goes here-->
-    </div>
+    <div class="lists mt-1 border-top" id="taskCardContainer"></div>
 </div>
 <!--/ Task Cards -->
 
@@ -142,4 +140,5 @@
   <script src="{% static 'js/user/dragdrop.js' %}"></script>
   <script src="{% static 'js/user/card_flow.js' %}"></script>
   <script src="{% static 'js/user/edit_card.js' %}"></script>
+  <script src="{% static 'js/user/manager_kanban.js' %}"></script>
 {% endblock %}
