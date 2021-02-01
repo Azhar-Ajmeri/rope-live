@@ -13,7 +13,7 @@ urlpatterns = [
     path('workPackage-list/', views.workPackageList, name = 'workPackage-list'),
 
     path('workPackagesByDepartment-list/<str:uk>/<str:dep_id>', views.workPackagesByDepartment),
-    path('workPackage-list/<str:uk>/<str:pk>/<str:dep_id>', views.workPackagesList),    
+    path('workPackage-list/<str:pk>/<str:dep_id>', views.workPackagesList),
 
     path('workPackage-create/', views.workPackageCreate, name = 'workPackage-create'),
     path('workPackage-detail/<str:pk>', views.workPackageDetail, name = 'workPackage-detail'),
