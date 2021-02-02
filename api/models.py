@@ -67,6 +67,7 @@ class WorkPackage(models.Model):
     milestone_Id = models.ForeignKey(Milestone, null=True, on_delete=models.CASCADE)
     phase_Id = models.ForeignKey(Phase, null=True, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, null=True, on_delete=models.CASCADE)
+    state = models.CharField(max_length=255, default="", blank= True)
 
     def __str__(self):
         return str(self.title)

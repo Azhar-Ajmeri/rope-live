@@ -82,18 +82,31 @@ def workPackageList(request):
     serializer = WorkPackageSerializer(workPackage, many = True)
     return Response(serializer.data)
 
+from collections import defaultdict
+
 @api_view(['GET'])
 def workPackagesByDepartment(request, uk, dep_id):
     temp = list( ManagerGroup.objects.values_list('project_Id', flat=True).filter(user = uk) )
     workPackage = WorkPackage.objects.filter(project_Id__in = temp, department = dep_id)
+
+    for wp in range(0, len(workPackage)):
+        subWorkPackages = SubWorkPackage.objects.filter(workPackage = workPackage[wp])
+        d = defaultdict(int)
+        for swp in subWorkPackages:
+            d[swp.state_id] += 1
+        
+        max_key = max(d, key=d.get)
+        
+        workPackage[wp].state = max_key
+
     serializer = WorkPackageSerializer(workPackage, many = True)
+
     return Response(serializer.data)
 
 @api_view(['GET'])
 def workPackagesList(request, pk, dep_id):
     workPackage = WorkPackage.objects.filter(project_Id = pk, department = dep_id)
     serializer = WorkPackageSerializer(workPackage, many = True)
-
     return Response(serializer.data)
 
 @api_view(['POST'])
