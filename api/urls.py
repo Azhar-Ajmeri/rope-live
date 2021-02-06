@@ -10,6 +10,12 @@ urlpatterns = [
     path('project-update/<str:pk>/', views.projectUpdate, name = 'project-update'),
     path('project-delete/<str:pk>/', views.projectDelete, name = 'project-delete'),
 
+    path('department-list/', views.departmentList, name = 'department-list'),
+    path('department-create/', views.departmentCreate, name = 'department-create'),
+    path('department-detail/<str:pk>', views.departmentDetail, name = 'department-detail'),
+    path('department-update/<str:pk>/', views.departmentUpdate, name = 'department-update'),
+    path('department-delete/<str:pk>/', views.departmentDelete, name = 'department-delete'),
+
     path('workPackage-list/', views.workPackageList, name = 'workPackage-list'),
 
     path('workPackagesByDepartment-list/<str:uk>/<str:dep_id>', views.workPackagesByDepartment),
