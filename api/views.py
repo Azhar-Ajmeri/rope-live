@@ -66,6 +66,13 @@ def projectUpdate(request, pk):
 
     return Response(serializer.data)
 
+@api_view(['POST'])
+def projectColorUpdate(request, pk, borderColor):
+    project = Project.objects.get(id = pk)
+    project.border_color = "#"+borderColor
+    project.save()
+    return Response('Success')
+
 @api_view(['DELETE'])
 def projectDelete(request, pk):
     project = Project.objects.get(id = pk)

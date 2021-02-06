@@ -13,6 +13,7 @@ class Project(models.Model):
     date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
     date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
     responsible = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
+    border_color = models.CharField(max_length=8, default="#ffffff")
 
     def __str__(self):
         return str(self.title)

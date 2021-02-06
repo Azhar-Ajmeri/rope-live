@@ -8,6 +8,7 @@ urlpatterns = [
     path('project-create/', views.projectCreate, name = 'project-create'),
     path('project-detail/<str:pk>', views.projectDetail, name = 'project-detail'),
     path('project-update/<str:pk>/', views.projectUpdate, name = 'project-update'),
+    path('project-update-color/<str:pk>/<str:borderColor>', views.projectColorUpdate),
     path('project-delete/<str:pk>/', views.projectDelete, name = 'project-delete'),
 
     path('department-list/', views.departmentList, name = 'department-list'),
