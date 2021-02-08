@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout', views.logoutPage, name = 'logout'),
 
     path('<str:id>/getSubworkpackageFormValues/', views.getSubpackageValue, name = 'get-Subpackage-Value'),
+    path('<str:id>/getWorkpackageFormValues/', views.getWorkPackageValue),
 
     path('admin', views.adminPage.as_view(), name="adminPage"),
     path('admin/<str:title>', views.adminProjectPage.as_view(), name="EditProject"),

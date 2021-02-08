@@ -56,7 +56,7 @@ $("#taskCardContainer").on('click','.editButtonSWPClass',function(){
                 $("#id_date_of_start").prop('disabled', false);
                 $("#id_date_of_end").prop('disabled', false);
                 $("#id_efforts_planned").prop('disabled', false);
-                $("#id_priority").prop('disabled', false);
+                $("#id_priority").prop('disabled', true);
             }
 
             console.log(response.field.priority)

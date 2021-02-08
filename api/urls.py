@@ -20,11 +20,13 @@ urlpatterns = [
     path('workPackage-list/', views.workPackageList, name = 'workPackage-list'),
 
     path('workPackagesByDepartment-list/<str:uk>/<str:dep_id>', views.workPackagesByDepartment),
+    path('project-WorkPackagesByDepartment-list/<str:uk>/<str:dep_id>/<str:pk>', views.projectWorkPackagesByDepartment),
     path('workPackage-list/<str:pk>/<str:dep_id>', views.workPackagesList),
 
     path('workPackage-create/', views.workPackageCreate, name = 'workPackage-create'),
     path('workPackage-detail/<str:pk>', views.workPackageDetail, name = 'workPackage-detail'),
     path('workPackage-update/<str:pk>/', views.workPackageUpdate, name = 'workPackage-update'),
+    path('workPackage-manual-update/<str:pk>/', views.workManualPackageUpdate),
     path('workPackage-delete/<str:pk>/', views.workPackageDelete, name = 'workPackage-delete'),
 
     path('subWorkPackage-list/', views.subWorkPackageList, name = 'subWorkPackage-list'),

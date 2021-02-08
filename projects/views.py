@@ -75,6 +75,10 @@ def getSubpackageValue(request, id):
     obj = SubWorkPackage.objects.get(id = id)
     return JsonResponse({'field': model_to_dict(obj)}, status=200)
 
+def getWorkPackageValue(request, id):
+    obj = WorkPackage.objects.get(id = id)
+    return JsonResponse({'field': model_to_dict(obj)}, status=200)
+
 
 def userSettingsPage(request):
     user = request.user.userprofiledetail

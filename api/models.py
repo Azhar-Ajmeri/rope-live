@@ -57,18 +57,28 @@ class Department(models.Model):
         return str(self.title)
 
 class WorkPackage(models.Model):
+    PRIORITY = (
+        ('LOW', 1), ('MEDIUM', 2), ('HIGH', 3)
+    )
     title= models.CharField(max_length=255, null=True, blank= True)
     description = models.CharField(max_length=255, default="", blank= True)
     completed = models.BooleanField(default=False, blank= True)
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
     date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
     date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
+    duration = models.IntegerField(null=True, blank= True)
     responsible = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
     project_Id = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
     milestone_Id = models.ForeignKey(Milestone, null=True, on_delete=models.CASCADE)
     phase_Id = models.ForeignKey(Phase, null=True, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, null=True, on_delete=models.CASCADE)
     state = models.CharField(max_length=255, default="", blank= True)
+
+    priority = models.IntegerField(default= 1, choices=PRIORITY)
+    efforts_actual = models.IntegerField(null=True)
+    efforts_planned = models.IntegerField(null=True)
+
+    border_color = models.CharField(max_length=8, default="#ffffff")
 
     def __str__(self):
         return str(self.title)
@@ -108,6 +118,8 @@ class SubWorkPackage(models.Model):
     workPackage =  models.ForeignKey(WorkPackage, null=True, on_delete=models.CASCADE)
     priority = models.IntegerField(default= 1, choices=PRIORITY)
     state = models.ForeignKey(State, null=True, on_delete=models.CASCADE, default = 1)
+
+    border_color = models.CharField(max_length=8, default="#ffffff")
 
     def __str__(self):
         return str(self.title)

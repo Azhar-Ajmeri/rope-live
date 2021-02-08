@@ -1,10 +1,13 @@
 function cardChangeState(listId, listPriority, list, dragging, packageId, priorityId){
     
-    if(parseInt(dragging.dataset.state)+1 == listId || listId == 1 && dragging.dataset.state == 2 
-    || dragging.dataset.state == "null" && listId==2 
-    || listId == dragging.dataset.state && listId==1 || listId == dragging.dataset.state && listId==2 
+    if(parseInt(dragging.dataset.state)+1 == listId && priorityId == listPriority
+    || listId == 1 && dragging.dataset.state == 2 && priorityId == listPriority
+    || dragging.dataset.state == "null" && listId==2 && priorityId == listPriority
+    || listId == dragging.dataset.state && listId==1 && priorityId == listPriority 
+    || listId == dragging.dataset.state && listId==2 && priorityId == listPriority
     )
     {
+        console.log("1");
         if(listId != 3 && listId != 4)
         {
             $.ajax({
@@ -30,7 +33,7 @@ function cardChangeState(listId, listPriority, list, dragging, packageId, priori
         }
         else if(listId == 3 && dragging.dataset.state == 2 && priorityId == listPriority 
             || listId == 4 && dragging.dataset.state == 3 && priorityId == listPriority){
-            
+                console.log("2");
             $.ajax({
                 url: '/projects/'+ packageId +'/getSubworkpackageFormValues/',
                 data: {
@@ -80,8 +83,9 @@ function cardChangeState(listId, listPriority, list, dragging, packageId, priori
             $('#cover-spin').hide(0);
         }
     }
-    else if(listId == 2 && dragging.dataset.state == 3){
+    else if(listId == 2 && dragging.dataset.state == 3 && priorityId == listPriority){
         console.log("You need to specify the reason")
+        console.log("3");
         $.ajax({
             url: '/api/subWorkPackage-state-update/',
             data: {
@@ -107,7 +111,7 @@ function cardChangeState(listId, listPriority, list, dragging, packageId, priori
         var wrapper = document.getElementById('message_content');
         wrapper.innerHTML =''	
         $('#message_container').show(0);
-        wrapper.innerHTML = "Can't move completed cards!"
+        wrapper.innerHTML = "Can't move the card in that direction!"
         $('#cover-spin').hide(0);
     }
 }

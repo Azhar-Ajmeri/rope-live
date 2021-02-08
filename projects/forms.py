@@ -39,3 +39,8 @@ class SubWorkPackageEditForm(forms.ModelForm):
     class Meta:
         model = SubWorkPackage
         fields = ['title', 'description', 'date_of_start', 'date_of_end','efforts_planned', 'priority']
+
+class WorkPackageEditForm(forms.ModelForm):
+    class Meta:
+        model = WorkPackage
+        fields = ['title', 'description', 'date_of_start', 'date_of_end','efforts_planned', 'priority']

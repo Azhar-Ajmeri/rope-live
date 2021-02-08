@@ -22,8 +22,6 @@ function dragFunction(){
     
             list.addEventListener('dragover', function(e) {
                 e.preventDefault();
-                
-    
             })
             list.addEventListener('drop', function(e) {
                 e.preventDefault();

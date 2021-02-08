@@ -45,7 +45,7 @@ function FillBuildedBoardColumns(){
                             <button type="button" data-toggle="modal" data-target="#" data-id="${project[i].id}" class="deleteProjectButton dropdown-item btn-sm">Delete</button>
                             <div class="dropdown-divider"></div>
                             <label for="${project[i].id}-colorPicker" class="btn">
-                                <input type="color" value="#1DB8CE" id="${project[i].id}-colorPicker" data-id="${project[i].id}">
+                                <input type="color" value="${project[i].border_color}" id="${project[i].id}-colorPicker" data-id="${project[i].id}">
                             </label>
                         </div>
                     <!--/DropDown -->

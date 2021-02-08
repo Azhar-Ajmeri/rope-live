@@ -30,7 +30,6 @@ from django.db.models import Q
 def apiOverView(request):
     api_urls={
         'Projects': '/project-list/'
-
     }
     return Response(api_urls)
 
@@ -71,6 +70,8 @@ def projectColorUpdate(request, pk, borderColor):
     project = Project.objects.get(id = pk)
     project.border_color = "#"+borderColor
     project.save()
+    WorkPackage.objects.filter(project_Id = pk).update(border_color = "#"+borderColor)
+    SubWorkPackage.objects.filter(project_Id = pk).update(border_color = "#"+borderColor)
     return Response('Success')
 
 @api_view(['DELETE'])
@@ -150,6 +151,25 @@ def workPackagesByDepartment(request, uk, dep_id):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def projectWorkPackagesByDepartment(request, uk, dep_id, pk):
+    temp = list( ManagerGroup.objects.values_list('project_Id', flat=True).filter(user = uk) )
+    workPackage = WorkPackage.objects.filter(project_Id__in = temp, department = dep_id, project_Id = pk)
+
+    for wp in range(0, len(workPackage)):
+        subWorkPackages = SubWorkPackage.objects.filter(workPackage = workPackage[wp])
+        d = defaultdict(int)
+        for swp in subWorkPackages:
+            d[swp.state_id] += 1
+        
+        max_key = max(d, key=d.get)
+        
+        workPackage[wp].state = max_key
+
+    serializer = WorkPackageSerializer(workPackage, many = True)
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def workPackagesList(request, pk, dep_id):
     workPackage = WorkPackage.objects.filter(project_Id = pk, department = dep_id)
     serializer = WorkPackageSerializer(workPackage, many = True)
@@ -180,6 +200,34 @@ def workPackageUpdate(request, pk):
         serializer.save()
 
     return Response(serializer.data)
+
+@api_view(['POST'])
+def workManualPackageUpdate(request, pk):
+    print(request.POST.get('title'))
+    workPackage = WorkPackage.objects.get(id = pk)
+    form = WorkPackageEditForm(request.POST)
+
+    workPackage.description = form.data.get('description')
+    if(form.data.get('title') != ""):
+        workPackage.title = form.data.get('title')
+    if(form.data.get('date_of_end') != ""):
+        workPackage.date_of_end = form.data.get('date_of_end')
+        temp = datetime.strptime((form.data.get('date_of_end')), '%Y-%m-%d')
+        print(datetime.date(temp).isocalendar()[1])
+    if(form.data.get('date_of_start') != ""):
+        workPackage.date_of_start = form.data.get('date_of_start')
+    if(form.data.get('date_of_end') != "" and form.data.get('date_of_start') != ""):
+        duration = datetime.strptime((form.data.get('date_of_end')), '%Y-%m-%d') - datetime.strptime((form.data.get('date_of_start')), '%Y-%m-%d')
+        workPackage.duration = duration.days
+    if(form.data.get('priority') != ""):
+        workPackage.priority = form.data.get('priority')
+    if(form.data.get('efforts_planned') != ""):
+        workPackage.efforts_planned = form.data.get('efforts_planned')
+
+    workPackage.save()
+
+    return JsonResponse({'WorkPackage':model_to_dict(workPackage)}, status=200)
+
 
 @api_view(['DELETE'])
 def workPackageDelete(request, pk):

@@ -103,7 +103,7 @@
             
             <div class="form-group col-md-6">
               <label for="id_priority">Priority:</label>
-              <select name="priority" class="form-control" id="id_priority">
+              <select name="priority" class="form-control" id="id_priority" disabled>
                 <option value="1">LOW</option>
 
                 <option value="2">MEDIUM</option>
@@ -113,11 +113,6 @@
               </select>
             </div>
           </div>
-          <!-- {% for field in EditProjectFields %}
-            <div class="mx-3">{{ field }}</div>
-          {% endfor %}
-          {{ editForm.as_p }}
-          -->
           <button type="button" id="editModalButton" class="btn btn-outline-warning btn-lg btn-block">Save</button>
         </form>
       </div>
@@ -128,6 +123,77 @@
   </div>
 </div>
 <!-- /Edit subpackage Modal -->
+
+
+
+<!-- Edit workpackage Modal -->
+<div class="modal fade" id="EditWPModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Fields</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="bg-blur" id="blurEditForm-wp"></div>
+        <div class="loader" id="Loader-spin-wp">Loading...</div>
+
+        <form action="" class="infoi" id="editWPForm" method="post">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="id_title">Title:</label>
+              <input type="text" class="form-control" name="title" maxlength="255" id="id_wptitle">
+            </div>
+          </div>
+            
+          <div class="form-group">
+              <label for="id_description">Description:</label>
+              <input type="text" class="form-control" name="description" maxlength="255" id="id_wpdescription">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="id_date_of_start">Date of start:</label>
+              <input type="date" class="form-control" name="date_of_start" id="id_wpdate_of_start">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="id_date_of_end">Date of end:</label>
+              <input type="date" class="form-control" name="date_of_end" id="id_wpdate_of_end">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="id_efforts_planned">Efforts planned:</label>
+              <input type="number" class="form-control" name="efforts_planned" required="" id="id_wpefforts_planned">
+            </div>
+            
+            <div class="form-group col-md-6">
+              <label for="id_priority">Priority:</label>
+              <select name="priority" class="form-control" id="id_wppriority" disabled>
+                <option value="1">LOW</option>
+
+                <option value="2">MEDIUM</option>
+
+                <option value="3">HIGH</option>
+
+              </select>
+            </div>
+          </div>
+          <button type="button" id="editWPModalButton" class="btn btn-outline-warning btn-lg btn-block">Save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="editWPModalDismissButton" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Edit workpackage Modal -->
+
 
 
 <script>

@@ -200,7 +200,7 @@ function FillBuildedBoardColumns_SWP(){
 			if(kanbanCards[i].state != null){
 				var wrapper = document.getElementById('column-'+kanbanCards[i].state+'-priority-'+kanbanCards[i].priority);
 				var item = `
-				<div class="list-item card" id="${kanbanCards[i].id}" draggable="true" data-id="${kanbanCards[i].id}" data-state="${kanbanCards[i].state}" data-priority="${kanbanCards[i].priority}">
+				<div class="list-item card" id="${kanbanCards[i].id}" draggable="true" data-id="${kanbanCards[i].id}" data-state="${kanbanCards[i].state}" data-priority="${kanbanCards[i].priority}"  style="border-left-width:thick;border-left-color:${kanbanCards[i].border_color}">
 					<!--DropDown -->
 					<div class="dropdown" data-id = "${kanbanCards[i].id}">
 						<button class="btn float-right btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -224,7 +224,7 @@ function FillBuildedBoardColumns_SWP(){
 			else{
 				var wrapper = document.getElementById('column-1-priority-1');
 				var item = `
-				<div class="list-item card" id="${kanbanCards[i].id}" draggable="true" data-id="${kanbanCards[i].id}" data-state="${kanbanCards[i].state}" data-priority="1">
+				<div class="list-item card" id="${kanbanCards[i].id}" draggable="true" data-id="${kanbanCards[i].id}" data-state="${kanbanCards[i].state}" data-priority="1"  style="border-left-width:thick;border-left-color:${kanbanCards[i].border_color}">
 					<!--DropDown -->
 					<div class="dropdown" data-id = "${kanbanCards[i].id}">
 						<button class="btn float-right btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
