@@ -206,7 +206,7 @@ function FillBuildedBoardColumns_SWP(){
 						<div class="card-body">
 							<h6 class="card-title" id="${kanbanCards[i].id}-taskTitle">${kanbanCards[i].title}</h6>
 							<small><p class="card-text text-muted" id="${kanbanCards[i].id}-taskDescription">${kanbanCards[i].description}</p></small>
-							<small><p class="card-text text-muted" id="${kanbanCards[i].id}-taskProject">${kanbanCards[i].project_Id}</p></small>
+							<small><p class="card-text text-muted" id="${kanbanCards[i].id}-taskProject">Project : ${kanbanCards[i].project_Id}</p></small>
 						</div>
 					</div>
 				</div>
