@@ -12,7 +12,7 @@
     <style>
         .border-3 {
             border-width:3px !important;
-            border-color: #A0D468 !important;
+            border-color: #0091D5 !important;
         }
     </style>
     {% block head %}
@@ -27,7 +27,7 @@
 <body>
     
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom border-3" style="background-color: #8CC152!important;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light border-bottom border-3" style="background-color: #4CB5F5!important;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,18 +36,18 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'manager-page' %}">Manage Projects</a>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'manager-page' %}">Manage Projects <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="{% url 'manager-view' %}">Project-Status</a>
               </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="{% url 'adminPage' %}">Admin</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="{% url 'settings' %}">Profile</a>
           </li>
           </ul>

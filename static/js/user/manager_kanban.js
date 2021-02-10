@@ -14,7 +14,7 @@ function FillBuildedBoardColumns_WP(){
 		console.log(data)
 		for(var i in kanbanCards){
 			if(kanbanCards[i].state != null){
-				var wrapper = document.getElementById('column-'+kanbanCards[i].state+'-priority-'+kanbanCards[i].priority);
+				var wrapper = document.getElementById('column-'+kanbanCards[i].state);
 				var item = `
 				<div class="list-item card" id="${kanbanCards[i].id}" draggable="true" data-id="${kanbanCards[i].id}" data-state="${kanbanCards[i].state}" data-priority="${kanbanCards[i].priority}" style="border-left-width:thick;border-left-color:${kanbanCards[i].border_color}">
 					<!--DropDown -->
@@ -38,7 +38,7 @@ function FillBuildedBoardColumns_WP(){
 				`
 			}
 			else{
-				var wrapper = document.getElementById('column-1-priority-1');
+				var wrapper = document.getElementById('column-1');
 				var item = `
 				<div class="list-item card" id="${kanbanCards[i].id}" draggable="true" data-id="${kanbanCards[i].id}" data-state="${kanbanCards[i].state}" data-priority="1"  style="border-left-width:thick;border-left-color:${kanbanCards[i].border_color}">
 					<!--DropDown -->
@@ -64,10 +64,7 @@ function FillBuildedBoardColumns_WP(){
 			wrapper.innerHTML += item	
 		}
 	})
-
 }
-
-
 
 $("#blurEditForm-wp").hide()
 $("#Loader-spin-wp").hide()
@@ -134,7 +131,6 @@ $("#taskCardContainer").on('click','.editButtonWPClass',function(){
             $("#blurEditForm-wp").hide()
             $("#Loader-spin-wp").hide()
         }
-    
     });
 });
 

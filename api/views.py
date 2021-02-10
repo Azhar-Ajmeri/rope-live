@@ -203,7 +203,7 @@ def workPackageUpdate(request, pk):
 
 @api_view(['POST'])
 def workManualPackageUpdate(request, pk):
-    print(request.POST.get('title'))
+    
     workPackage = WorkPackage.objects.get(id = pk)
     form = WorkPackageEditForm(request.POST)
 
@@ -213,7 +213,7 @@ def workManualPackageUpdate(request, pk):
     if(form.data.get('date_of_end') != ""):
         workPackage.date_of_end = form.data.get('date_of_end')
         temp = datetime.strptime((form.data.get('date_of_end')), '%Y-%m-%d')
-        print(datetime.date(temp).isocalendar()[1])
+        
     if(form.data.get('date_of_start') != ""):
         workPackage.date_of_start = form.data.get('date_of_start')
     if(form.data.get('date_of_end') != "" and form.data.get('date_of_start') != ""):
@@ -267,18 +267,17 @@ def subWorkPackageUpdate(request, pk):
     form = SubWorkPackageEditForm(request.POST)
 
     subSubWorkPackage.description = form.data.get('description')
-    if(form.data.get('title') != ""):
+    if(form.data.get('title') != "" and form.data.get('title') != None):
         subSubWorkPackage.title = form.data.get('title')
-    if(form.data.get('date_of_end') != ""):
+    if(form.data.get('date_of_end') != "" and form.data.get('date_of_end') != None):
         subSubWorkPackage.date_of_end = form.data.get('date_of_end')
         temp = datetime.strptime((form.data.get('date_of_end')), '%Y-%m-%d')
-        print(datetime.date(temp).isocalendar()[1])
-    if(form.data.get('date_of_start') != ""):
+    if(form.data.get('date_of_start') != "" and form.data.get('date_of_start') != None):
         subSubWorkPackage.date_of_start = form.data.get('date_of_start')
-    if(form.data.get('date_of_end') != "" and form.data.get('date_of_start') != ""):
+    if(form.data.get('date_of_end') != "" and form.data.get('date_of_start') != "" and form.data.get('date_of_end') != None and form.data.get('date_of_start') != None):
         duration = datetime.strptime((form.data.get('date_of_end')), '%Y-%m-%d') - datetime.strptime((form.data.get('date_of_start')), '%Y-%m-%d')
         subSubWorkPackage.duration = duration.days    
-    if(form.data.get('priority') != ""):
+    if(form.data.get('priority') != "" and form.data.get('priority') != None):
         subSubWorkPackage.priority = form.data.get('priority')
     if(form.data.get('efforts_planned') != ""):
         subSubWorkPackage.efforts_planned = form.data.get('efforts_planned')
@@ -327,8 +326,6 @@ def updateSubPackageState(request):
     stateId = data.get('state')
     state = State.objects.get(id = stateId)
     subWorkPackage.state = state
-    priority = data.get('priority')
-    subWorkPackage.priority = priority
     
     if(data.get('state') == '2'):
         subWorkPackage.date_of_state2 = data.get('actual_date')

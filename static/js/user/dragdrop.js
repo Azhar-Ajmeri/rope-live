@@ -12,7 +12,6 @@ function dragFunction(){
                     this.classList.add('dragging')
                     packageId = this.dataset.id;
                     stateId = this.dataset.state;
-                    priorityId = this.dataset.priority;
                 })
     
                 draggable.addEventListener('dragend', function() {
@@ -27,7 +26,7 @@ function dragFunction(){
                 e.preventDefault();
                 dragging = document.querySelector('.dragging');
                 $('#cover-spin').show(0);
-                cardChangeState(list.dataset.id, list.dataset.priority, list, dragging, packageId, priorityId)
+                cardChangeState(list, dragging, packageId)
             })
         }
     }

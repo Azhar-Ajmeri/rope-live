@@ -1,29 +1,26 @@
-function cardChangeState(listId, listPriority, list, dragging, packageId, priorityId){
-    
-    if(parseInt(dragging.dataset.state)+1 == listId && priorityId == listPriority
-    || listId == 1 && dragging.dataset.state == 2 && priorityId == listPriority
-    || dragging.dataset.state == "null" && listId==2 && priorityId == listPriority
-    || listId == dragging.dataset.state && listId==1 && priorityId == listPriority 
-    || listId == dragging.dataset.state && listId==2 && priorityId == listPriority
-    )
+function cardChangeState(list, dragging, packageId){
+    console.log("packageId", packageId)
+    console.log("list", list.dataset.state)
+    console.log("dragging", dragging.dataset.state)
+    $('#cover-spin').hide(0);
+
+    if( (parseInt(dragging.dataset.state)+1) == list.dataset.state)
     {
-        console.log("1");
-        if(listId != 3 && listId != 4)
+        console.log("here")
+        if(list.dataset.state != 3 && list.dataset.state != 4)
         {
             $.ajax({
                 url: '/api/subWorkPackage-state-update/',
                 data: {
                     csrfmiddlewaretoken: csrftoken,
                     id : packageId,
-                    state : listId,
+                    state : list.dataset.state,
                     actual_date : new Date().toISOString().slice(0, 10),
-                    priority : listPriority,
                 },
                 type: 'post',
                 success: function(){
                     list.appendChild(dragging);
-                    dragging.dataset.state = listId;
-                    dragging.dataset.priority = listPriority;
+                    dragging.dataset.state = list.dataset.state;
                     $('#cover-spin').hide(0);
                 },
                 error: function(){
@@ -31,9 +28,9 @@ function cardChangeState(listId, listPriority, list, dragging, packageId, priori
                 }
             })
         }
-        else if(listId == 3 && dragging.dataset.state == 2 && priorityId == listPriority 
-            || listId == 4 && dragging.dataset.state == 3 && priorityId == listPriority){
-                console.log("2");
+        else if(list.dataset.state == 3 || list.dataset.state == 4)
+        {
+            console.log("here")
             $.ajax({
                 url: '/projects/'+ packageId +'/getSubworkpackageFormValues/',
                 data: {
@@ -56,18 +53,20 @@ function cardChangeState(listId, listPriority, list, dragging, packageId, priori
                             data: {
                                 csrfmiddlewaretoken: csrftoken,
                                 id : packageId,
-                                state : listId,
+                                state : list.dataset.state,
                                 actual_date : new Date().toISOString().slice(0, 10),
-                                priority : listPriority,
                             },
                             type: 'post',
                             success: function(){
                                 list.appendChild(dragging);
-                                dragging.dataset.state = listId;
-                                dragging.dataset.priority = listPriority;
+                                dragging.dataset.state = list.dataset.state;
                                 $('#cover-spin').hide(0);
                             },
                             error: function(){
+                                var wrapper = document.getElementById('message_content');
+                                wrapper.innerHTML =''	
+                                $('#message_container').show(0);
+                                wrapper.innerHTML = "Failed to move!"
                                 $('#cover-spin').hide(0);
                             }
                         })
@@ -75,43 +74,27 @@ function cardChangeState(listId, listPriority, list, dragging, packageId, priori
                 }
             })
         }
-        else{
-            var wrapper = document.getElementById('message_content');
-            wrapper.innerHTML =''	
-            $('#message_container').show(0);
-            wrapper.innerHTML = "Can't change priority!"
-            $('#cover-spin').hide(0);
+    }
+    else if((parseInt(dragging.dataset.state)-1) == list.dataset.state)
+        {
+            console.log("wjsd")
+            $.ajax({
+                url: '/api/subWorkPackage-state-update/',
+                data: {
+                    csrfmiddlewaretoken: csrftoken,
+                    id : packageId,
+                    state : list.dataset.state,
+                    actual_date : new Date().toISOString().slice(0, 10),
+                },
+                type: 'post',
+                success: function(){
+                    list.appendChild(dragging);
+                    dragging.dataset.state = list.dataset.state;
+                    $('#cover-spin').hide(0);
+                },
+                error: function(){
+                    $('#cover-spin').hide(0);
+                }
+            })
         }
-    }
-    else if(listId == 2 && dragging.dataset.state == 3 && priorityId == listPriority){
-        console.log("You need to specify the reason")
-        console.log("3");
-        $.ajax({
-            url: '/api/subWorkPackage-state-update/',
-            data: {
-                csrfmiddlewaretoken: csrftoken,
-                id : packageId,
-                state : listId,
-                actual_date : new Date().toISOString().slice(0, 10),
-                priority : listPriority,
-            },
-            type: 'post',
-            success: function(){
-                list.appendChild(dragging);
-                dragging.dataset.state = 2;
-                dragging.dataset.priority = listPriority;
-                $('#cover-spin').hide(0);
-            },
-            error: function(){
-                $('#cover-spin').hide(0);
-            }
-        })
-    }
-    else{
-        var wrapper = document.getElementById('message_content');
-        wrapper.innerHTML =''	
-        $('#message_container').show(0);
-        wrapper.innerHTML = "Can't move the card in that direction!"
-        $('#cover-spin').hide(0);
-    }
 }
