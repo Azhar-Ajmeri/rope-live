@@ -106,7 +106,6 @@ function filter_functions(){
 function clearBoardColumns(){
 
 	packageType = $('select[id="packagetype"]').val()
-	
 	columnBuilder();
 	if(packageType == 1){
 		FillBuildedBoardColumns_SWP()
@@ -119,20 +118,10 @@ function clearBoardColumns(){
 
 // Creates the columns in kanban board
 function buildBoardColumns(){
-	var stateColumns = document.getElementsByClassName("list")
 	
-	if(stateColumns.length != 0)
-	{
-		for(var i = 0; i < stateColumns.length; i++)
-		{
-			$("#"+stateColumns[i].id).html("");
-		}
-		FillBuildedBoardColumns_SWP()
-	}
-	else{
-		columnBuilder();
-		FillBuildedBoardColumns_SWP();
-	}
+	columnBuilder();
+	FillBuildedBoardColumns_SWP();
+	
 }
 function columnBuilder(){
 	var wrapper = document.getElementById('taskCardContainer');
@@ -156,9 +145,10 @@ function columnBuilder(){
 					div.classList.add('rounded-lg')
 					div.classList.add('m-1')
 					div.classList.add('border')
+					div.classList.add('border-dark')
 					div.innerHTML =`
 					<p>${kanbanColumns[i].title}</p>
-					<hr/>`;
+					<hr style="background-color:#0091D5;"/>`;
 			wrapper.appendChild(div);
 		}
 	})

@@ -24,12 +24,12 @@ SwpVsUser = new Chart(ctx, {
 			label: 'No of Subworkpackages vs Responsible',
 			data: [],
 			backgroundColor: [
-				'rgba(255, 99, 132, 0.2)',
-				'rgba(54, 162, 235, 0.2)',
-				'rgba(255, 206, 86, 0.2)',
-				'rgba(75, 192, 192, 0.2)',
-				'rgba(153, 102, 255, 0.2)',
-				'rgba(255, 159, 64, 0.2)'
+				'rgba(255, 99, 132, 0.6)',
+				'rgba(54, 162, 235, 0.6)',
+				'rgba(255, 206, 86, 0.6)',
+				'rgba(75, 192, 192, 0.6)',
+				'rgba(153, 102, 255, 0.6)',
+				'rgba(255, 159, 64, 0.6)'
 			],
 			borderColor: [
 				'rgba(255, 99, 132, 1)',
@@ -62,10 +62,10 @@ SwpVsStatus = new Chart(ctx, {
 			label: 'No of Sub workpackage vs Status',
 			data: [],
 			backgroundColor: [
-				'rgba(119, 194, 254, 0.2)',
-				'rgba(36, 156, 255, 0.2)',
-				'rgba(10, 87, 158, 0.2)',
-				'rgba(0, 56, 112, 0.2)',
+				'rgba(119, 194, 254, 0.6)',
+				'rgba(36, 156, 255, 0.6)',
+				'rgba(10, 87, 158, 0.6)',
+				'rgba(0, 56, 112, 0.6)',
 			],
 			borderColor: [
 				'rgba(119, 194, 254, 1)',
@@ -100,7 +100,7 @@ StartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#2196f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(130, 238, 253, 0.1)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(130, 238, 253, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		},
 		{
@@ -108,7 +108,7 @@ StartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#9621f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(236, 151, 6, 0.1)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(236, 151, 6, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		}]
 	},
@@ -130,7 +130,7 @@ ActualStartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#2196f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(57, 68, 188, 0.2)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(57, 68, 188, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		},
 		{
@@ -138,7 +138,7 @@ ActualStartDateByKW = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#9621f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(221, 87, 28, 0.2)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(221, 87, 28, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		}]
 	},
@@ -161,7 +161,7 @@ WeekByStatus = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#2196f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(255, 99, 132, 0.2)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(255, 99, 132, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		},
 		{
@@ -169,7 +169,7 @@ WeekByStatus = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#9621f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(153, 102, 255, 0.2)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(153, 102, 255, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		},
 		{
@@ -177,7 +177,7 @@ WeekByStatus = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#9621f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(255, 159, 64, 0.2)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(255, 159, 64, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		},
 		{
@@ -185,7 +185,7 @@ WeekByStatus = new Chart(ctx, {
 			data: [], // Specify the data values array
 			fill: true,
 			borderColor: '#9621f3', // Add custom color border (Line)
-			backgroundColor: 'rgba(75, 192, 192, 0.2)', // Add custom color background (Points and Fill)
+			backgroundColor: 'rgba(75, 192, 192, 0.6)', // Add custom color background (Points and Fill)
 			borderWidth: 1 // Specify bar border width
 		}]
 	},
