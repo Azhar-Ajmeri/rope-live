@@ -29,18 +29,6 @@ class UserProfileDetailForm(forms.ModelForm):
         widgets = {
             'profile_pic': forms.FileInput(attrs={'name':'profile_pic','class': 'form-control-file','placeholder':'Profile Photo...','id':'id_profile_pic', 'style':'width:85%!important'}),
         }
-
-class SubWorkPackageUserAssignmentForm(forms.ModelForm):
-    class Meta:
-        model = SubWorkPackage
-        fields = ['responsible']
-
-class SubWorkPackageEditForm(forms.ModelForm):
-    class Meta:
-        model = SubWorkPackage
-        fields = ['title', 'description', 'date_of_start', 'date_of_end','efforts_planned', 'priority']
-
-class WorkPackageEditForm(forms.ModelForm):
-    class Meta:
-        model = WorkPackage
-        fields = ['title', 'description', 'date_of_start', 'date_of_end','efforts_planned', 'priority']
+        
+class PositionForm(forms.Form):
+    position = forms.CharField()

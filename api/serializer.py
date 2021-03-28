@@ -8,34 +8,9 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = '__all__'
 
-class PhaseSerializer(serializers.ModelSerializer):
+class WorkPackage3Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Phase
-        fields = '__all__'
-
-class MilestoneSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Milestone
-        fields = '__all__'
-
-class WorkPackageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = WorkPackage
-        fields = '__all__'
-
-class SubWorkPackageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SubWorkPackage
-        fields = '__all__'
-
-class SubWorkPackageEditSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SubWorkPackage
-        fields = ['title', 'description', 'date_of_start', 'date_of_end','efforts_planned', 'priority']
-
-class StateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = State
+        model = WorkPackage3
         fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
@@ -54,22 +29,12 @@ class UserProfileDetailSerializer(serializers.ModelSerializer):
         model = UserProfileDetail
         fields = '__all__'
 
-class UserGroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserGroup
-        fields = '__all__'
-
-class ManagerGroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ManagerGroup
-        fields = '__all__'
-
-class UserGroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserGroup
-        fields = '__all__'
-
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
+        fields = '__all__'
+
+class StatesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = State
         fields = '__all__'
