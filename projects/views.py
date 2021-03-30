@@ -13,6 +13,7 @@ from .forms import *
 @login_required(login_url='login')
 #@allowed_users(allowed_roles = ['admin'])
 def home(request):
+
     context = {}
 
     return render(request, 'projects/index.html', context)

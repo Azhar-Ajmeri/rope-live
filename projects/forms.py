@@ -29,6 +29,15 @@ class UserProfileDetailForm(forms.ModelForm):
         widgets = {
             'profile_pic': forms.FileInput(attrs={'name':'profile_pic','class': 'form-control-file','placeholder':'Profile Photo...','id':'id_profile_pic', 'style':'width:85%!important'}),
         }
-        
+
 class PositionForm(forms.Form):
     position = forms.CharField()
+
+class WorkPackageDetailsForm(forms.ModelForm):
+    class Meta:
+        model = WorkPackage3
+        fields = ['title', 'description', 'status', 'efforts_planned']
+
+    def __init__(self, user_type, *args, **kwargs):
+        super(WorkPackageDetailsForm, self).__init__(*args, **kwargs)
+        self.fields['status'].queryset = status.objects.filter(user_type=user_type, state = 2)

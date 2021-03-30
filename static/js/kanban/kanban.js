@@ -1,25 +1,12 @@
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-const csrftoken = getCookie('csrftoken');
+var state = {};
+var workpackage = {}
 
 const FillColumns = () =>{
     var url = '/api/workpackage/'
     fetch(url)
 	.then((resp) => resp.json())
 	.then(function(data){
+		workpackage = data;
         data.map((card) => {
             var wrapper = document.getElementById('column-'+card.state);
             var item = 
@@ -47,9 +34,9 @@ const FillColumns = () =>{
             wrapper.innerHTML += item;
         });
 	});
+	$('#cover-spin').hide(0);
 }
 const stateUpdate = (state, packageId) =>{
-	console.log("calledStateUpdate")
 	$.ajax({
 		url: '/api/update-state/',
 		data: {
@@ -58,16 +45,9 @@ const stateUpdate = (state, packageId) =>{
 			state : state,
 		},
 		type: 'post',
-		success: function(){
-			
-		},
-		error: function(){
-			
-		}
 	})
 }
 const orderUpdate = (pos, state, packageId, order, parentDivOrder) =>{
-	console.log("calledOrderUpdate")
 	$.ajax({
 		url: '/api/update-order/',
 		data: {
@@ -75,18 +55,13 @@ const orderUpdate = (pos, state, packageId, order, parentDivOrder) =>{
 			position : pos.join(','),
 		},
 		type: 'post',
-		success: function(){
-
-		},
-		error: function(){
-			
-		}
 	}).done(function (){
 		if(order != parentDivOrder)
 			stateUpdate(state, packageId);
 	})
 }
 const columnBuilder = () =>{
+	$('#cover-spin').show(0);
     var wrapper = document.getElementById('taskCardContainer');
 	$("#taskCardContainer").html("")
 	var url = '/api/states/'
@@ -94,6 +69,7 @@ const columnBuilder = () =>{
 	fetch(url)
 	.then((resp) => resp.json())
 	.then(function(data){
+		state = data;
 		data.map((state) => {
 
             div = 	document.createElement('div')	
@@ -148,11 +124,9 @@ const columnBuilder = () =>{
 				let packageId = $(div.item)[0].id;
 				let state = $(div.item)[0].parentElement.dataset.state;
 				let order = this.dataset.order;
-				if(
-					order == parentDivOrder 
+				if(order == parentDivOrder 
 					|| order > parentDivOrder && this.dataset.backward_movement=="true" 
-					|| order < parentDivOrder && this.dataset.forward_movement=="true"
-					)
+					|| order < parentDivOrder && this.dataset.forward_movement=="true")
 				{
 					const rows = document.getElementsByClassName("list-item");
 					let pos = [];
@@ -164,8 +138,6 @@ const columnBuilder = () =>{
 						orderUpdate(pos, state, packageId, order, parentDivOrder);
 					else if(order != parentDivOrder)
 						stateUpdate(state, packageId);
-
-					
 				}
 				else
 					$(this).sortable("cancel");

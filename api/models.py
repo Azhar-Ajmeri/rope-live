@@ -30,6 +30,15 @@ class State(models.Model):
     forward_movement = models.BooleanField(default=True)
     backward_movement = models.BooleanField(default=True)
 
+class status(models.Model):
+    title = models.CharField(max_length=255, null=True, blank= True)
+    description = models.CharField(max_length=255, null=True, default="", blank= True)
+    user_type = models.ForeignKey(UserType, null=True, on_delete=models.DO_NOTHING)
+    state = models.ForeignKey(State, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.title)
+
 class Department(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null = True, blank =True)
@@ -45,11 +54,6 @@ class WorkPackage0(models.Model):
 
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
 
-    date_of_state1 = models.DateField(auto_now_add=True, null=True, blank= True)
-    date_of_state2 = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_state3 = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_state4 = models.DateField(auto_now_add=False, null=True, blank= True)
-
     date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
     date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
 
@@ -62,7 +66,7 @@ class WorkPackage0(models.Model):
     efforts_planned = models.IntegerField(null=True)
 
     responsible = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
-    project_Id = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
     
     state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING, default = 1)
     border_color = models.CharField(max_length=8, default="#ffffff")
@@ -78,10 +82,7 @@ class WorkPackage1(models.Model):
 
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
 
-    date_of_state1 = models.DateField(auto_now_add=True, null=True, blank= True)
-    date_of_state2 = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_state3 = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_state4 = models.DateField(auto_now_add=False, null=True, blank= True)
+    
 
     date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
     date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
@@ -95,7 +96,7 @@ class WorkPackage1(models.Model):
     efforts_planned = models.IntegerField(null=True)
 
     responsible = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
-    project_Id = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
     workPackage =  models.ForeignKey(WorkPackage0, null=True, on_delete=models.CASCADE)
     
     state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING, default = 1)
@@ -112,10 +113,7 @@ class WorkPackage2(models.Model):
 
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
 
-    date_of_state1 = models.DateField(auto_now_add=True, null=True, blank= True)
-    date_of_state2 = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_state3 = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_state4 = models.DateField(auto_now_add=False, null=True, blank= True)
+    
 
     date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
     date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
@@ -129,7 +127,7 @@ class WorkPackage2(models.Model):
     efforts_planned = models.IntegerField(null=True)
 
     responsible = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
-    project_Id = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
     workPackage =  models.ForeignKey(WorkPackage1, null=True, on_delete=models.CASCADE)
     
     state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING, default = 1)
@@ -146,10 +144,7 @@ class WorkPackage3(models.Model):
 
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
 
-    date_of_state1 = models.DateField(auto_now_add=True, null=True, blank= True)
-    date_of_state2 = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_state3 = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_state4 = models.DateField(auto_now_add=False, null=True, blank= True)
+    
 
     date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
     date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
@@ -163,10 +158,11 @@ class WorkPackage3(models.Model):
     efforts_planned = models.IntegerField(null=True)
 
     responsible = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
-    project_Id = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
     workPackage =  models.ForeignKey(WorkPackage2, null=True, on_delete=models.CASCADE)
     
     state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING, default = 1)
+    status = models.ForeignKey(status, null=True, on_delete=models.DO_NOTHING)
     border_color = models.CharField(max_length=8, default="#ffffff")
 
     def __str__(self):
