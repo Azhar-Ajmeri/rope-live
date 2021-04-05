@@ -14,36 +14,40 @@
 {% block subtitlerow1 %}
   Kanban Board
 {% endblock %}
+{% load crispy_forms_tags %}
 {% block subtitlerow2 %}
-
+{% if request.user.userprofiledetail.user_type.id == 2 %}
 <div class="row">
-  <div class="col-4 col-sm-6 col-md-8 col-lg-8">
-    <button class="btn" style="background-color: #0091D5!important;color: #fff!important;" type="button" data-toggle="collapse" data-target="#collapse-filter" aria-expanded="false" aria-controls="collapseExample">
-      Filters <i class="fa fa-chevron-down text-muted" style="color: #fff!important;"></i>
-    </button>
+  <div class="col">
+    <div id="accordion">
+      <button class="btn collapsed btn-info" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        New Package <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+      <div id="collapseTwo" class="collapse" aria-labelledby="newPackage" data-parent="#accordion">
+        <div class="mt-1 p-2">
+          <form id="create_package_form" action='' method='POST'>
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-lg-5 col-md-12">
+                {{form.title|as_crispy_field}}
+              </div>
+              <div class="col-lg-5 col-md-12">
+                {{form.project|as_crispy_field}}
+              </div>
+              <div class="col-lg-2 col-md-12 d-flex align-items-center mt-lg-3">
+                <input type="button" class="align-bottom btn btn-success" id="createPackage" value="Create"/>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<div class="row">
-  {{form}}
-</div>
-<div class="container">
-  <div class="form-group row" id="project_selection">
-  </div>
-</div>
-
-
+{% endif %}
 {% endblock %}
 
 {% block content %}
-<div id="cover-spin"></div>
-
-<div id="message_container" style="display: none;">
-  <div id="message_content">
-
-  </div>
-  <i class="fa fa-close fa-2 ml-4" id="closeMessage" style="color:white;cursor: pointer;"></i>
-</div>
-
 <!-- Task Cards -->
 <div class="container-fluid" style="min-height: 600px;">
     <div class="lists mt-1 border-top" id="taskCardContainer">
@@ -58,4 +62,5 @@
 {% block javaScriptBlock %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="{% static 'js/kanban/kanban.js' %}"></script>
+  <script src="{% static 'js/kanban/card_form.js' %}"></script>
 {% endblock %}

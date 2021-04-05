@@ -13,7 +13,7 @@ class StatesList(GenericAPIView, ListModelMixin):
         return self.list(request)
 
     def get_queryset(self):
-        return State.objects.filter(user_type=self.request.user.userprofiledetail.user_type.id).order_by('order')
+        return State.objects.all().order_by('order')#user_type=self.request.user.userprofiledetail.user_type.id).order_by('order')
 
 def updatePackageState(request):
     data = request.POST
@@ -25,3 +25,12 @@ def updatePackageState(request):
     workpackage.save()
     
     return HttpResponse('')
+
+class StatusList(GenericAPIView, ListModelMixin):
+    serializer_class = StatusSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request)
+
+    def get_queryset(self):
+        return status.objects.filter(user_type=self.request.user.userprofiledetail.user_type.id)

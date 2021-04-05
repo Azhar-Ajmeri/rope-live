@@ -3,6 +3,12 @@
 /*.card{
     border-left: 5px solid grey;
 }*/
+textarea {
+  max-width: 600px;
+  max-height: 200px;
+  min-width: 200px;
+  min-height: 100px;
+}
 
 .lists {
     display: flex;

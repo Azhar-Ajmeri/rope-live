@@ -13,9 +13,10 @@ from .forms import *
 @login_required(login_url='login')
 #@allowed_users(allowed_roles = ['admin'])
 def home(request):
-
     context = {}
-
+    if request.user.userprofiledetail.user_type.id == 2:
+        createPackageForm = WorkPackageCreationForm()
+        context = {'form': createPackageForm}
     return render(request, 'projects/index.html', context)
 
 @unauthenticated_user

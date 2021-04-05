@@ -36,8 +36,13 @@ class PositionForm(forms.Form):
 class WorkPackageDetailsForm(forms.ModelForm):
     class Meta:
         model = WorkPackage3
-        fields = ['title', 'description', 'status', 'efforts_planned']
+        fields = ['title', 'description', 'emp_status', 'efforts_planned']
 
-    def __init__(self, user_type, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(WorkPackageDetailsForm, self).__init__(*args, **kwargs)
-        self.fields['status'].queryset = status.objects.filter(user_type=user_type, state = 2)
+        self.fields['emp_status'].queryset = status.objects.filter(user_type=1, state = 2)
+    
+class WorkPackageCreationForm(forms.ModelForm):
+    class Meta:
+        model = WorkPackage3
+        fields = ['title', 'project']

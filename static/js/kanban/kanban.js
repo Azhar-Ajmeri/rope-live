@@ -1,5 +1,5 @@
 var state = {};
-var workpackage = {}
+var workpackage = {};
 
 const FillColumns = () =>{
     var url = '/api/workpackage/'
@@ -7,26 +7,27 @@ const FillColumns = () =>{
 	.then((resp) => resp.json())
 	.then(function(data){
 		workpackage = data;
+		console.log(workpackage)
         data.map((card) => {
             var wrapper = document.getElementById('column-'+card.state);
             var item = 
             `
-				<div class="list-item card mt-1" id="${card.id}" draggable="true" data-id="${card.id}" data-state="${card.state}"  style="border-left-width:thick;border-left-color:${card.border_color}">
+				<div class="list-item card mt-1" id="${card.id}" draggable="true" data-id="${card.id}" style="border-left-width:thick;border-left-color:${card.border_color}">
 					<!--DropDown -->
 					<div class="dropdown" data-id = "${card.id}">
 						<button class="btn float-right btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-ellipsis-v text-warning"></i>
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<button data-toggle="modal" data-target="#EditModal" class="editButtonSWPClass dropdown-item btn-sm" data-id="${card.id}">Edit</button>
-							<button class="deleteButtonSWPClass dropdown-item btn-sm" data-id="${card.id}">Delete</button>
+							<button data-toggle="modal" data-target="#EditModal" class="update-Fields dropdown-item btn-sm" data-id="${card.id}">Edit</button>
+							<button class="deleteWPClass dropdown-item btn-sm" data-id="${card.id}">Delete</button>
 						</div>
 					
 						<!--/DropDown -->
 						<div class="card-body">
 							<h6 class="card-title" id="${card.id}-taskTitle">${card.title}</h6>
 							<small><p class="card-text text-muted" id="${card.id}-taskDescription">${card.description}</p></small>
-							<small><p class="card-text text-muted" id="${card.id}-taskProject">Project : ${card.project_Id}</p></small>
+							<small><p class="card-text text-muted" id="${card.id}-taskProject">Project : ${card.project}</p></small>
 						</div>
 					</div>
 				</div>
@@ -80,7 +81,7 @@ const columnBuilder = () =>{
 					div.classList.add('col')
 					div.innerHTML =`
 					<h6><p class="p-2 bg-info text-white rounded-lg">${state.title}</p></h6>
-					<hr style="background-color:#0091D5;"/>`;
+					<hr style="background-color:#0091D5;"/>`
                     wrapper.appendChild(div);
         });
         data.map((state) => {
@@ -147,3 +148,100 @@ const columnBuilder = () =>{
 }
 
 columnBuilder()
+
+
+$("#taskCardContainer").on('click','.update-Fields',function(){
+	$("#blurEditForm").show()
+	$("#Loader-spin").show()
+	state = $(this).parent().parent().parent().parent().data('state');
+	editWorkPackageForm(state, Status_data);
+
+	id = $(this).data('id');
+	data = workpackage.find(item => {
+		return item.id == id
+	})
+	$('#update-form *').filter(':input').each(function(){
+		if(this.type!="button")
+		{
+			this.value = data[this.name];
+		}
+	});
+
+	$("#blurEditForm").hide()
+	$("#Loader-spin").hide()
+	$('#savebutton').click(function(){
+		var serializedData = $("#update-form").serialize();
+		workpackage.find(item => {
+			if(item.id == id)
+			{
+				$('#update-form *').filter(':input').each(function(){
+					if(this.type!="button")
+					{
+						item[this.name] = this.value;
+					}
+				});
+				return;
+			}
+		});
+		$.ajax({
+			headers: { "X-CSRFToken": csrftoken },
+			url: '/api/workpackage/'+id+'/',
+			data: serializedData,
+			type: 'PUT',
+	
+			success: function(){
+				
+			}
+		});
+		document.getElementById('editModalDismissButton').click();
+	});
+});
+$("#taskCardContainer").on('click','.deleteWPClass',function(){
+	id = $(this).data('id');
+	console.log("Clicked")
+	fetch('/api/workpackage-delete/'+id+'/', {
+		method:'DELETE',
+		headers:{
+			'Content-type':'application/json',
+			'X-CSRFToken':csrftoken,
+			}
+	}).then((response) => {
+		$("#"+id).remove();
+	});
+});
+
+
+$('#createPackage').click(function() {
+	$.ajax({
+		url: '/api/workpackage-create/',
+		data: $('#create_package_form').serialize(),
+		type: 'POST',
+		success: function(card){
+			$("#create_package_form")[0].reset();
+			var wrapper = document.getElementById('column-'+card.state);
+            var item = 
+            `
+				<div class="list-item card mt-1" id="${card.id}" draggable="true" data-id="${card.id}" style="border-left-width:thick;border-left-color:${card.border_color}">
+					<!--DropDown -->
+					<div class="dropdown" data-id = "${card.id}">
+						<button class="btn float-right btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-ellipsis-v text-warning"></i>
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<button data-toggle="modal" data-target="#EditModal" class="update-Fields dropdown-item btn-sm" data-id="${card.id}">Edit</button>
+							<button class="deleteWPClass dropdown-item btn-sm" data-id="${card.id}">Delete</button>
+						</div>
+					
+						<!--/DropDown -->
+						<div class="card-body">
+							<h6 class="card-title" id="${card.id}-taskTitle">${card.title}</h6>
+							<small><p class="card-text text-muted" id="${card.id}-taskDescription">${card.description}</p></small>
+							<small><p class="card-text text-muted" id="${card.id}-taskProject">Project : ${card.project}</p></small>
+						</div>
+					</div>
+				</div>
+			`
+            wrapper.innerHTML += item;
+		}
+	});
+});

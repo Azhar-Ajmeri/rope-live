@@ -18,8 +18,12 @@ urlpatterns = [
     path('department-delete/<str:pk>/', views.departmentDelete, name = 'department-delete'),
 
     path('states/', views.StatesList.as_view()),
+    path('status/', views.StatusList.as_view()),
 
     path('workpackage/', views.WorkPackageList.as_view(), name = 'WorkPackage-List'),
+    path('workpackage-create/', views.WorkPackageCreate.as_view()),
+    path('workpackage/<int:pk>/', views.WorkPackageUpdate.as_view()),
+    path('workpackage-delete/<int:pk>/', views.WorkPackageDelete.as_view()),
     path('update-order/', views.TaskReorder.as_view()),
     path('update-state/', views.updatePackageState),
 

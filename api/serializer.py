@@ -38,3 +38,8 @@ class StatesSerializer(serializers.ModelSerializer):
     class Meta:
         model = State
         fields = '__all__'
+
+class StatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = status
+        fields = '__all__'
