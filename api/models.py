@@ -192,8 +192,8 @@ class UserProfileDetail(models.Model):
     email = models.CharField(max_length=200, null = True)
     profile_pic = models.ImageField(default="default_profile.png", null = True, blank = True)
     department = models.ForeignKey(Department, null=True, on_delete=models.CASCADE)
-    user_type = models.ForeignKey(UserType, null=True, on_delete=models.DO_NOTHING)
-    date_created = models.DateField(auto_now_add=False, null=True)
+    user_type = models.ForeignKey(UserType, null=True, on_delete=models.DO_NOTHING, default=1)
+    date_created = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return str(self.user)

@@ -23,7 +23,7 @@ class UserProfileDetailForm(forms.ModelForm):
     class Meta:
         model = UserProfileDetail
         fields = '__all__'
-        exclude = ['user', 'date_created']
+        exclude = ['user', 'date_created', 'user_type', 'date_created']
 
 
         widgets = {
