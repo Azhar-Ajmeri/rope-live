@@ -79,6 +79,12 @@
                 </div>
                 <div class="input-group mb-2">
                     <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-pencil-square"></i></span>
+                    </div>
+                    {{ form.user_type }}
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
                     </div>
                     {{ form.profile_pic }}
@@ -102,8 +108,6 @@
     form_fields[2].placeholder='Name...';
     form_fields[3].placeholder='Phone...';
     form_fields[4].placeholder='Email...';
-    form_fields[5].placeholder='Role..';
-    form_fields[6].placeholder='Profile Photo...';
     
 
     for (var i=1; i < form_fields.length-1; i++){
@@ -111,6 +115,7 @@
     }
     
     $('#id_department').addClass('form-control')
+    $('#id_user_type').addClass('form-control')
 </script>
   <!--<script src="{% static 'js/.js' %}"></script>-->
 {% endblock %}

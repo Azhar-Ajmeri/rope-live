@@ -8,6 +8,9 @@ from django.dispatch import receiver
 
 class UserType(models.Model):
     type = models.CharField(max_length=255, unique=True)
+    
+    def __str__(self):
+        return str(self.type)
 
 class Project(models.Model):
     title = models.CharField(max_length=255, unique=True)
