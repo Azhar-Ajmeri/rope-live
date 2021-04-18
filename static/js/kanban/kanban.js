@@ -7,9 +7,23 @@ const FillColumns = () =>{
 	.then((resp) => resp.json())
 	.then(function(data){
 		workpackage = data;
-		console.log(workpackage)
         data.map((card) => {
-            var wrapper = document.getElementById('column-'+card.state);
+			if(user_type == 1){
+				var wrapper = document.getElementById('column-'+card.state);
+			}
+			else{
+				if(card.emp_status == 1 || card.emp_status == 2)
+					return;
+				if(card.manager_status == 4 || card.manager_status == 5){
+					var wrapper = document.getElementById('column-'+1);
+				}
+				else if(card.manager_status == 6){
+					var wrapper = document.getElementById('column-'+2);
+				}
+				else{
+					var wrapper = document.getElementById('column-'+3);
+				}
+			}
             var item = 
             `
 				<div class="list-item card mt-1" id="${card.id}" draggable="true" data-id="${card.id}" style="border-left-width:thick;border-left-color:${card.border_color}">
@@ -45,7 +59,18 @@ const stateUpdate = (state, packageId) =>{
 			id : packageId,
 			state : state,
 		},
-		type: 'post',
+		type: 'POST',
+		success: function(response){
+			workpackage.find(item => {
+				if(item.id == response.id)
+				{
+					Object.keys(response).forEach(function(key) {
+						item[key] = response[key];
+					});
+					return;
+				}
+			});
+		}
 	})
 }
 const orderUpdate = (pos, state, packageId, order, parentDivOrder) =>{
@@ -77,23 +102,30 @@ const columnBuilder = () =>{
 					div.setAttribute('id', "outer-column-"+state.id);
 					div.classList.add('rounded-lg')
 					div.classList.add('p-0')
+					div.setAttribute('style', "min-width: 200px;");
+					div.classList.add('list')
 					div.classList.add('m-1')
 					div.classList.add('col')
 					div.innerHTML =`
-					<h6><p class="p-2 bg-info text-white rounded-lg">${state.title}</p></h6>
-					<hr style="background-color:#0091D5;"/>`
+					<h6 class="sticky-header"><p class="p-2 bg-info text-white rounded-lg">${state.title}</p></h6>`
                     wrapper.appendChild(div);
         });
         data.map((state) => {
 			innerWrapper = document.getElementById("outer-column-"+state.id)
-            div = 	document.createElement('div')
+            div = 	document.createElement('div');
 					div.setAttribute('id', "column-"+state.id);
 					div.setAttribute('data-state', state.id);
 					div.setAttribute('data-order', state.order);
-					div.setAttribute('data-forward_movement', state.forward_movement);
-					div.setAttribute('data-backward_movement', state.backward_movement);
-					div.setAttribute('style', "min-height: 600px;min-width: 200px;");
-					div.classList.add('list')
+					if(user_type == 1){
+						div.setAttribute('data-forward_movement', state.forward_movement_emp);
+						div.setAttribute('data-backward_movement', state.backward_movement_emp);
+					}
+					else{
+						div.setAttribute('data-forward_movement', state.forward_movement_manager);
+						div.setAttribute('data-backward_movement', state.backward_movement_manager);
+					}
+					div.setAttribute('style', "min-width: 200px;");
+					div.classList.add('inner-list')
 					div.classList.add('col')
 					div.classList.add('p-2')					
 					div.innerHTML = `
@@ -107,7 +139,8 @@ const columnBuilder = () =>{
 		columns = columns.substring(0, columns.length-1)
         FillColumns();
 		$(columns).sortable({
-            connectWith: ".list",
+            connectWith: ".inner-list",
+			containment: $("#taskCardContainer"),
 			start: function(event, div) {
 				const rows = document.getElementsByClassName("list-item");
 				
@@ -116,18 +149,18 @@ const columnBuilder = () =>{
 					pos.push(row.dataset.id);
 				}
 				pos = pos.filter( Number );
-				
 				div.item.data('start_pos', pos);
 			},
 			stop: function(ev, div) {
 				
-				let parentDivOrder = $(div.item)[0].parentElement.dataset.order;				
+				let parentDivOrder = $(div.item)[0].parentElement.dataset.order;
 				let packageId = $(div.item)[0].id;
 				let state = $(div.item)[0].parentElement.dataset.state;
 				let order = this.dataset.order;
-				if(order == parentDivOrder 
-					|| order > parentDivOrder && this.dataset.backward_movement=="true" 
-					|| order < parentDivOrder && this.dataset.forward_movement=="true")
+				if(order == parentDivOrder
+					|| order > parentDivOrder && this.dataset.backward_movement=="true" && (parseInt(order)+1 == parseInt(parentDivOrder) || parseInt(order)-1 == parseInt(parentDivOrder)) 
+					|| order < parentDivOrder && this.dataset.forward_movement=="true" && (parseInt(order)+1 == parseInt(parentDivOrder) || parseInt(order)-1 == parseInt(parentDivOrder))
+					)
 				{
 					const rows = document.getElementsByClassName("list-item");
 					let pos = [];
@@ -171,26 +204,27 @@ $("#taskCardContainer").on('click','.update-Fields',function(){
 	$("#Loader-spin").hide()
 	$('#savebutton').click(function(){
 		var serializedData = $("#update-form").serialize();
-		workpackage.find(item => {
-			if(item.id == id)
-			{
-				$('#update-form *').filter(':input').each(function(){
-					if(this.type!="button")
-					{
-						item[this.name] = this.value;
-					}
-				});
-				return;
-			}
-		});
 		$.ajax({
 			headers: { "X-CSRFToken": csrftoken },
 			url: '/api/workpackage/'+id+'/',
 			data: serializedData,
 			type: 'PUT',
 	
-			success: function(){
+			success: function(response){
 				
+				if(response.responsible!=undefined && user_type != 1)
+				{
+					$("#"+id).remove();
+				}
+				workpackage.find(item => {
+					if(item.id == id)
+					{
+						Object.keys(response).forEach(function(key) {
+							item[key] = response[key];
+						});
+						return;
+					}
+				});
 			}
 		});
 		document.getElementById('editModalDismissButton').click();
@@ -219,6 +253,7 @@ $('#createPackage').click(function() {
 		success: function(card){
 			$("#create_package_form")[0].reset();
 			var wrapper = document.getElementById('column-'+card.state);
+			workpackage.push(card);
             var item = 
             `
 				<div class="list-item card mt-1" id="${card.id}" draggable="true" data-id="${card.id}" style="border-left-width:thick;border-left-color:${card.border_color}">

@@ -29,8 +29,13 @@ class State(models.Model):
     description = models.CharField(max_length=255, null=True, default="", blank= True)
     user_type = models.ForeignKey(UserType, null=True, on_delete=models.DO_NOTHING)
     order = models.IntegerField(null=False, blank= False)
-    forward_movement = models.BooleanField(default=True)
-    backward_movement = models.BooleanField(default=True)
+    forward_movement_emp = models.BooleanField(default=True)
+    backward_movement_emp = models.BooleanField(default=True)
+    forward_movement_manager = models.BooleanField(default=True)
+    backward_movement_manager = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.title)
 
 class status(models.Model):
     title = models.CharField(max_length=255, null=True, blank= True)
@@ -86,8 +91,6 @@ class WorkPackage1(models.Model):
 
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
 
-    
-
     date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
     date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
 
@@ -119,8 +122,6 @@ class WorkPackage2(models.Model):
 
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
 
-    
-
     date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
     date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
 
@@ -146,16 +147,14 @@ class WorkPackage2(models.Model):
 
 class WorkPackage3(models.Model):
     
-    title= models.CharField(max_length=255, null=True, blank= True)
+    title= models.CharField(max_length=255, null=False, blank= False)
     description = models.CharField(max_length=255, default="", blank= True)
     completed = models.BooleanField(default=False, blank= True)
 
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
 
-    
-
-    date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
+    planned_date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
+    planned_date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
 
     duration = models.IntegerField(null=True, blank= True)
 
@@ -174,9 +173,9 @@ class WorkPackage3(models.Model):
     state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING, default = 1)
 
     emp_status = models.ForeignKey(status, null=True, related_name='employee_status', on_delete=models.DO_NOTHING)
-    manager_status = models.ForeignKey(status, null=True, related_name='manager_status', on_delete=models.DO_NOTHING)
+    manager_status = models.ForeignKey(status, null=True, related_name='manager_status', on_delete=models.DO_NOTHING, default = 4)
 
-    border_color = models.CharField(max_length=8, default="#ffffff")
+    border_color = models.CharField(max_length=8, default="#f5f5f5")
 
     def __str__(self):
         return str(self.title)

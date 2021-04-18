@@ -4,7 +4,8 @@ from api.serializer import *
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin
 
-from django.http import HttpResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 class StatesList(GenericAPIView, ListModelMixin):
     serializer_class = StatesSerializer
@@ -15,6 +16,7 @@ class StatesList(GenericAPIView, ListModelMixin):
     def get_queryset(self):
         return State.objects.all().order_by('order')#user_type=self.request.user.userprofiledetail.user_type.id).order_by('order')
 
+@api_view(['POST'])
 def updatePackageState(request):
     data = request.POST
     WPid = data.get('id')
@@ -22,9 +24,16 @@ def updatePackageState(request):
     stateId = data.get('state')
     state = State.objects.get(id = stateId)
     workpackage.state = state
+    if request.user.userprofiledetail.user_type.id == 1:
+        workpackage.emp_status = status.objects.get(state=workpackage.state, user_type = request.user.userprofiledetail.user_type.id)
+        if workpackage.state.title == "Complete":
+            workpackage.manager_status = status.objects.get(id = 6)
+    else:
+        workpackage.manager_status= status.objects.get(id = 7)
+        workpackage.emp_status= status.objects.get(id = 7)
     workpackage.save()
-    
-    return HttpResponse('')
+    serializer = WorkPackage3Serializer(workpackage, many = False)
+    return Response(serializer.data)
 
 class StatusList(GenericAPIView, ListModelMixin):
     serializer_class = StatusSerializer

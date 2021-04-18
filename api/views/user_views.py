@@ -10,13 +10,13 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def userList(request):
-    user = User.objects.filter(is_superuser=False).order_by('first_name')
+    user = User.objects.filter(is_superuser=False, ).order_by('first_name')
     serializer = UserSerializer(user, many = True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def userDetailList(request):
-    user = UserProfileDetail.objects.filter().order_by('name')
+    user = UserProfileDetail.objects.filter(user_type=1, department = request.user.userprofiledetail.department.id).order_by('name')
     serializer = UserProfileDetailSerializer(user, many = True)
     return Response(serializer.data)
 
