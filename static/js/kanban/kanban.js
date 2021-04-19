@@ -222,6 +222,7 @@ $("#taskCardContainer").on('click','.update-Fields',function(){
 						Object.keys(response).forEach(function(key) {
 							item[key] = response[key];
 						});
+						console.log(item, response)
 						return;
 					}
 				});

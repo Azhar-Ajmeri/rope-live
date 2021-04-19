@@ -43,6 +43,8 @@ class WorkPackageUpdate(UpdateAPIView):
         serializer = self.get_serializer(instance, data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
+        instance = self.get_object()
+        serializer = WorkPackage3Serializer(instance, many = False)
         return Response(serializer.data)
     
     def perform_update(self, serializer):
