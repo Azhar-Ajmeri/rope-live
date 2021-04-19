@@ -51,7 +51,7 @@ class WorkPackageUpdate(UpdateAPIView):
         if instance.responsible != None:
             instance.emp_status = status.objects.get(id=1)
         if instance.manager_status == status.objects.get(id=4):
-            mandatory_fields = ['title', 'planned_date_of_start', 'planned_date_of_end', 'efforts_planned', 'responsible']
+            mandatory_fields = ['title', 'planned_date_of_start', 'planned_date_of_end', 'efforts_planned']
             for field in mandatory_fields:
                 if getattr(instance, field)==None:
                     break
