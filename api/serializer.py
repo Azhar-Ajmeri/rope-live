@@ -11,7 +11,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 class WorkPackage3Serializer(serializers.ModelSerializer):
     class Meta:
         model = WorkPackage3
-        fields = ['id', 'title', 'description', 'planned_date_of_start', 'planned_date_of_end', 'efforts_planned', 'responsible', 'created_by', 'project', 'state', 'manager_status', 'emp_status']
+        fields = ['id', 'title', 'description', 'planned_date_of_start', 'planned_date_of_end', 'efforts_planned', 'responsible', 'created_by', 'project', 'parentPackage', 'state', 'manager_status', 'emp_status', 'inputFrom', 'inputFile']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

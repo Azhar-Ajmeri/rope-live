@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views.generic import View
 
 from django.contrib.auth.forms import UserCreationForm
@@ -17,6 +17,9 @@ def home(request):
     if request.user.userprofiledetail.user_type.id == 2:
         createPackageForm = WorkPackageCreationForm()
         context = {'form': createPackageForm}
+    uploadFileForm = Workpackage3DocumentForm()
+    context['uploadForm'] = uploadFileForm
+        
     return render(request, 'projects/index.html', context)
 
 @unauthenticated_user
@@ -70,3 +73,17 @@ def userSettingsPage(request):
     context = {'form':form}
 
     return render(request, "projects/settings.html", context)
+
+def upload_view(request, id):
+    workPackage3 = WorkPackage3.objects.get(id = id)
+    if request.method == 'POST':
+        form = Workpackage3DocumentForm(data=request.POST, files=request.FILES, instance=workPackage3)
+        print(request.FILES)
+    if form.is_valid():
+        form.save()
+        print('valid form')
+    else:
+        print('invalid form')
+        print(form.errors)
+
+    return HttpResponse('/ingest/')

@@ -32,7 +32,10 @@
                 {{form.title|as_crispy_field}}
               </div>
               <div class="col-lg-5 col-md-12">
-                {{form.project|as_crispy_field}}
+                {{form.parentPackage|as_crispy_field}}
+              </div>
+              <div class="col-lg-5 col-md-12">
+                {{form.inputFrom|as_crispy_field}}
               </div>
               <div class="col-lg-2 col-md-12 d-flex align-items-center mt-lg-3">
                 <input type="button" class="align-bottom btn btn-success" id="createPackage" value="Create"/>
@@ -61,4 +64,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="{% static 'js/kanban/kanban.js' %}"></script>
   <script src="{% static 'js/kanban/card_form.js' %}"></script>
+  <script src="{% static 'js/kanban/input_File_details.js' %}"></script>
 {% endblock %}

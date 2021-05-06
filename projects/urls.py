@@ -7,7 +7,7 @@ urlpatterns = [
     path('login', views.loginPage, name = 'login'),
     path('logout', views.logoutPage, name = 'logout'),
 
+    path('settings', views.userSettingsPage, name="settings"),   
 
-    path('settings', views.userSettingsPage, name="settings"),               
-
+    path('upload-file/<str:id>', views.upload_view),
 ]

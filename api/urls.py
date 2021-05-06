@@ -23,6 +23,9 @@ urlpatterns = [
     path('workpackage/', views.WorkPackageList.as_view(), name = 'WorkPackage-List'),
     path('workpackage-create/', views.WorkPackageCreate.as_view()),
     path('workpackage/<int:pk>/', views.WorkPackageUpdate.as_view()),
+
+    path('workpackage-details/<int:pk>/', views.workpackageDetails),
+
     path('workpackage-delete/<int:pk>/', views.WorkPackageDelete.as_view()),
     path('update-order/', views.TaskReorder.as_view()),
     path('update-state/', views.updatePackageState),

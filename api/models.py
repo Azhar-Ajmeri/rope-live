@@ -56,77 +56,15 @@ class Department(models.Model):
     def __str__(self):
         return str(self.title)
 
-class WorkPackage0(models.Model):
-    
-    title= models.CharField(max_length=255, null=True, blank= True)
-    description = models.CharField(max_length=255, default="", blank= True)
-    completed = models.BooleanField(default=False, blank= True)
-
-    date_of_creation = models.DateField(auto_now_add=True, blank= True)
-
-    date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
-
-    duration = models.IntegerField(null=True, blank= True)
-
-    actual_date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
-    actual_date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
-
-    efforts_actual = models.IntegerField(null=True)
-    efforts_planned = models.IntegerField(null=True)
-
-    responsible = models.ForeignKey(User, null=True, related_name='assignee2', on_delete=models.DO_NOTHING)
-    created_by = models.ForeignKey(User, null=True, related_name='creator2', on_delete=models.DO_NOTHING)
-
-    project = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
-    
-    state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING, default = 1)
-    border_color = models.CharField(max_length=8, default="#ffffff")
-
-    def __str__(self):
-        return str(self.title)
-
-class WorkPackage1(models.Model):
-    
-    title= models.CharField(max_length=255, null=True, blank= True)
-    description = models.CharField(max_length=255, default="", blank= True)
-    completed = models.BooleanField(default=False, blank= True)
-
-    date_of_creation = models.DateField(auto_now_add=True, blank= True)
-
-    date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
-
-    duration = models.IntegerField(null=True, blank= True)
-
-    actual_date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
-    actual_date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
-
-    efforts_actual = models.IntegerField(null=True)
-    efforts_planned = models.IntegerField(null=True)
-
-    responsible = models.ForeignKey(User, null=True, related_name='assignee3', on_delete=models.DO_NOTHING)
-    created_by = models.ForeignKey(User, null=True, related_name='creator3', on_delete=models.DO_NOTHING)
-
-    project = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
-    workPackage =  models.ForeignKey(WorkPackage0, null=True, on_delete=models.CASCADE)
-    
-    state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING, default = 1)
-    border_color = models.CharField(max_length=8, default="#ffffff")
-
-    def __str__(self):
-        return str(self.title)
-
 class WorkPackage2(models.Model):
-    
-    title= models.CharField(max_length=255, null=True, blank= True)
+    title= models.CharField(max_length=255, null=False, blank= False)
     description = models.CharField(max_length=255, default="", blank= True)
     completed = models.BooleanField(default=False, blank= True)
 
     date_of_creation = models.DateField(auto_now_add=True, blank= True)
 
-    date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
-    date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
+    planned_date_of_start = models.DateField(auto_now_add=False, null=True, blank= True)
+    planned_date_of_end = models.DateField(auto_now_add=False, null=True, blank= True)
 
     duration = models.IntegerField(null=True, blank= True)
 
@@ -140,13 +78,19 @@ class WorkPackage2(models.Model):
     created_by = models.ForeignKey(User, null=True, related_name='creator4', on_delete=models.DO_NOTHING)
 
     project = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
-    workPackage =  models.ForeignKey(WorkPackage1, null=True, on_delete=models.CASCADE)
     
     state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING, default = 1)
-    border_color = models.CharField(max_length=8, default="#ffffff")
+
+    inputFrom = models.ForeignKey('self', null=True, related_name='input_from', on_delete=models.DO_NOTHING)
+    inputFile = models.FileField(upload_to='documents/', blank=True)
+
+    border_color = models.CharField(max_length=8, default="#f5f5f5")
 
     def __str__(self):
         return str(self.title)
+
+    class Meta:
+        order_with_respect_to = 'responsible'
 
 class WorkPackage3(models.Model):
     
@@ -171,12 +115,15 @@ class WorkPackage3(models.Model):
     created_by = models.ForeignKey(User, null=True, related_name='creator5', on_delete=models.DO_NOTHING)
 
     project = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
-    workPackage =  models.ForeignKey(WorkPackage2, null=True, on_delete=models.CASCADE)
+    parentPackage = models.ForeignKey(WorkPackage2, null=True, on_delete=models.CASCADE)
     
     state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING, default = 1)
 
     emp_status = models.ForeignKey(status, null=True, related_name='employee_status', on_delete=models.DO_NOTHING)
     manager_status = models.ForeignKey(status, null=True, related_name='manager_status', on_delete=models.DO_NOTHING, default = 4)
+
+    inputFrom = models.ForeignKey('self', null=True, related_name='input_from', on_delete=models.DO_NOTHING)
+    inputFile = models.FileField(upload_to='documents/', blank=True)
 
     border_color = models.CharField(max_length=8, default="#f5f5f5")
 

@@ -45,4 +45,9 @@ class WorkPackageDetailsForm(forms.ModelForm):
 class WorkPackageCreationForm(forms.ModelForm):
     class Meta:
         model = WorkPackage3
-        fields = ['title', 'project']
+        fields = ['title', 'parentPackage', 'inputFrom']
+
+class Workpackage3DocumentForm(forms.ModelForm):
+    class Meta:
+        model = WorkPackage3
+        fields = ['inputFile']

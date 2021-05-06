@@ -34,7 +34,9 @@ const FillColumns = () =>{
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 							<button data-toggle="modal" data-target="#EditModal" class="update-Fields dropdown-item btn-sm" data-id="${card.id}">Edit</button>
+							<button data-toggle="modal" data-target="#UploadModal" class="upload-file-Fields dropdown-item btn-sm" data-id="${card.id}">upload</button>
 							<button class="deleteWPClass dropdown-item btn-sm" data-id="${card.id}">Delete</button>
+							<button data-toggle="modal" data-target="#InputFileDetailModal" class="input-file-Fields dropdown-item btn-sm" data-id="${card.id}">Input File Details</button>
 						</div>
 					
 						<!--/DropDown -->
@@ -42,6 +44,7 @@ const FillColumns = () =>{
 							<h6 class="card-title" id="${card.id}-taskTitle">${card.title}</h6>
 							<small><p class="card-text text-muted" id="${card.id}-taskDescription">${card.description}</p></small>
 							<small><p class="card-text text-muted" id="${card.id}-taskProject">Project : ${card.project}</p></small>
+							<small><p class="card-text text-muted" id="${card.id}-taskProject">Project File : <a href="${card.inputFile}" target="_blank">File</a></p></small>
 						</div>
 					</div>
 				</div>
@@ -222,7 +225,6 @@ $("#taskCardContainer").on('click','.update-Fields',function(){
 						Object.keys(response).forEach(function(key) {
 							item[key] = response[key];
 						});
-						console.log(item, response)
 						return;
 					}
 				});
@@ -233,7 +235,6 @@ $("#taskCardContainer").on('click','.update-Fields',function(){
 });
 $("#taskCardContainer").on('click','.deleteWPClass',function(){
 	id = $(this).data('id');
-	console.log("Clicked")
 	fetch('/api/workpackage-delete/'+id+'/', {
 		method:'DELETE',
 		headers:{
@@ -252,6 +253,8 @@ $('#createPackage').click(function() {
 		data: $('#create_package_form').serialize(),
 		type: 'POST',
 		success: function(card){
+			location.reload();
+			return false;
 			$("#create_package_form")[0].reset();
 			var wrapper = document.getElementById('column-'+card.state);
 			workpackage.push(card);
@@ -265,7 +268,9 @@ $('#createPackage').click(function() {
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 							<button data-toggle="modal" data-target="#EditModal" class="update-Fields dropdown-item btn-sm" data-id="${card.id}">Edit</button>
+							<button data-toggle="modal" data-target="#UploadModal" class="upload-file-Fields dropdown-item btn-sm" data-id="${card.id}">upload</button>
 							<button class="deleteWPClass dropdown-item btn-sm" data-id="${card.id}">Delete</button>
+							<button data-toggle="modal" data-target="#InputFileDetailModal" class="input-file-Fields dropdown-item btn-sm" data-id="${card.id}">Input File Details</button>
 						</div>
 					
 						<!--/DropDown -->
@@ -278,6 +283,24 @@ $('#createPackage').click(function() {
 				</div>
 			`
             wrapper.innerHTML += item;
+		}
+	});
+});
+$("#taskCardContainer").on('click','.upload-file-Fields',function(){
+	id = $(this).data('id');
+});
+$('#uploadFileButton').click(function() {
+	$('#cover-spin').show(0);
+	var data1 = new FormData($('#upload_file_form').get(0));
+	$.ajax({
+		url: '/upload-file/'+id,
+		data: data1,
+		type: 'POST',
+		contentType:false,
+		processData: false,
+		success: function(data) {
+			alert('success');
+			$('#cover-spin').hide(0);
 		}
 	});
 });

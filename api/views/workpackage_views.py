@@ -1,6 +1,7 @@
 from rest_framework.generics import GenericAPIView, UpdateAPIView, DestroyAPIView, CreateAPIView
 from rest_framework.mixins import ListModelMixin
 
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from api.models import WorkPackage3
@@ -14,7 +15,6 @@ from django.db import transaction
 from django.http import HttpResponse
 
 #--------------------------Work Packages Views-------------------------
-
 class WorkPackageList(GenericAPIView, ListModelMixin):
     serializer_class = WorkPackage3Serializer
 
@@ -29,7 +29,10 @@ class WorkPackageList(GenericAPIView, ListModelMixin):
 
 class WorkPackageCreate(CreateAPIView):
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        workpackage = serializer.save(created_by=self.request.user)
+        parentPackage = WorkPackage2.objects.get(id = workpackage.parentPackage.id)
+        workpackage.project = parentPackage.project
+        workpackage.save()
 
     queryset = WorkPackage3.objects.all()
     serializer_class = WorkPackage3Serializer
@@ -64,6 +67,12 @@ class WorkPackageUpdate(UpdateAPIView):
 class WorkPackageDelete(DestroyAPIView):
     queryset = WorkPackage3.objects.all()
     serializer_class = WorkPackage3Serializer
+
+@api_view(['GET'])
+def workpackageDetails(request, pk):
+    snippet = WorkPackage3.objects.get(id = pk)
+    serializer = WorkPackage3Serializer(snippet)
+    return Response(serializer.data)
 
 class TaskReorder(View):
     def post(self, request):
